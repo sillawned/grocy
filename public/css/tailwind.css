@@ -1442,6 +1442,10 @@ tr.selected {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
 }
+.dropdown-menu-right {
+  right: 0px;
+  left: auto;
+}
 /* ====== Modals ====== */
 .modal {
   position: fixed;
