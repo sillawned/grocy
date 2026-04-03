@@ -21,7 +21,7 @@ function CheckHeaderClockEnabled()
 	if (BoolVal(Grocy.UserSettings.show_clock_in_header))
 	{
 		RefreshHeaderClock();
-		$("#clock-container").removeClass("d-none");
+		$("#clock-container").removeClass("hidden");
 
 		Grocy.HeaderClockInterval = setInterval(function()
 		{
@@ -36,7 +36,7 @@ function CheckHeaderClockEnabled()
 			Grocy.HeaderClockInterval = null;
 		}
 
-		$("#clock-container").addClass("d-none");
+		$("#clock-container").addClass("hidden");
 	}
 }
 CheckHeaderClockEnabled();
