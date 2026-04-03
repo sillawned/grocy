@@ -9,7 +9,7 @@ $('#save-shoppinglist-button').on('click', function(e)
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -315,7 +315,7 @@ else
 	}
 }
 
-var eitherRequiredFields = $("#product_id,#product_id_text_input,#note");
+var eitherRequiredFields = $("#product_id,#note");
 eitherRequiredFields.prop('required', "");
 eitherRequiredFields.on('input', function()
 {

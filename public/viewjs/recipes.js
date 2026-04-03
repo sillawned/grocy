@@ -454,8 +454,7 @@ $(document).on("click", ".add-to-mealplan-button", function(e)
 	Grocy.Components.DateTimePicker.SetValue(moment().format("YYYY-MM-DD"));
 	Grocy.Components.RecipePicker.Clear();
 	$("#add-to-mealplan-modal").modal("show");
-	$('#recipe_id').val($(e.currentTarget).attr("data-recipe-id"));
-	$('#recipe_id').data('combobox').refresh();
+	Grocy.Components.RecipePicker._tsInstance.setValue($(e.currentTarget).attr("data-recipe-id"), true);
 	$('#recipe_id').trigger('change');
 	Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form");
 	$("#recipe_servings").focus();
@@ -465,7 +464,7 @@ $('#save-add-to-mealplan-button').on('click', function(e)
 {
 	e.preventDefault();
 
-	if (!Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form", true) || $(".combobox-menu-visible").length)
+	if (!Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form", true) || $(".ts-wrapper.dropdown-active").length)
 	{
 		return false;
 	}

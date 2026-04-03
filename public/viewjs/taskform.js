@@ -7,7 +7,7 @@
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}

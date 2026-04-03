@@ -509,7 +509,7 @@ $('#save-add-recipe-button').on('click', function(e)
 {
 	e.preventDefault();
 
-	if (!Grocy.FrontendHelpers.ValidateForm("add-recipe-form", true) || $(".combobox-menu-visible").length)
+	if (!Grocy.FrontendHelpers.ValidateForm("add-recipe-form", true) || $(".ts-wrapper.dropdown-active").length)
 	{
 		return false;
 	}
@@ -551,7 +551,7 @@ $('#save-add-note-button').on('click', function(e)
 {
 	e.preventDefault();
 
-	if (!Grocy.FrontendHelpers.ValidateForm("add-note-form", true) || $(".combobox-menu-visible").length)
+	if (!Grocy.FrontendHelpers.ValidateForm("add-note-form", true) || $(".ts-wrapper.dropdown-active").length)
 	{
 		return false;
 	}
@@ -594,7 +594,7 @@ $('#save-add-product-button').on('click', function(e)
 {
 	e.preventDefault();
 
-	if (!Grocy.FrontendHelpers.ValidateForm("add-product-form", true) || $(".combobox-menu-visible").length)
+	if (!Grocy.FrontendHelpers.ValidateForm("add-product-form", true) || $(".ts-wrapper.dropdown-active").length)
 	{
 		return false;
 	}

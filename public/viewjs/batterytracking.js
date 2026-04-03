@@ -1,4 +1,6 @@
-﻿$('#save-batterytracking-button').on('click', function(e)
+var tsBattery = null;
+
+$('#save-batterytracking-button').on('click', function(e)
 {
 	e.preventDefault();
 
@@ -7,7 +9,7 @@
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -28,12 +30,11 @@
 						toastr.success(__t('Tracked charge cycle of battery %1$s on %2$s', batteryDetails.battery.name, $('#tracked_time').find('input').val()) + '<br><a class="btn btn-secondary btn-sm mt-2" href="#" onclick="UndoChargeCycle(' + result.id + ')"><i class="fa-solid fa-undo"></i> ' + __t("Undo") + '</a>');
 						Grocy.Components.BatteryCard.Refresh($('#battery_id').val());
 
-						$('#battery_id').val('');
-						$('#battery_id_text_input').focus();
-						$('#battery_id_text_input').val('');
+						tsBattery.clear(true);
 						$('#tracked_time').find('input').val(moment().format('YYYY-MM-DD HH:mm:ss'));
-						$('#battery_id_text_input').trigger('change');
+						$('#battery_id').trigger('change');
 						Grocy.FrontendHelpers.ValidateForm('batterytracking-form');
+						$(tsBattery.control_input).focus();
 					});
 				},
 				function(xhr)
@@ -53,10 +54,6 @@
 
 $('#battery_id').on('change', function(e)
 {
-	var input = $('#battery_id_text_input').val().toString();
-	$('#battery_id_text_input').val(input);
-	$('#battery_id').data('combobox').refresh();
-
 	var batteryId = $(e.target).val();
 	if (batteryId)
 	{
@@ -71,20 +68,50 @@ $('#battery_id').on('change', function(e)
 	}
 });
 
-$('.combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4',
-	clearIfNoMatch: false
+tsBattery = new TomSelect('#battery_id', {
+	allowEmptyOption: true,
+	create: false,
+	onBlur: function()
+	{
+		if (tsBattery.isOpen)
+		{
+			return;
+		}
+
+		var input = tsBattery.control_input.value.toString();
+		var possibleOptionElement = [];
+
+		// Grocycode handling
+		if (input.startsWith("grcy"))
+		{
+			var gc = input.split(":");
+			if (gc[1] == "b")
+			{
+				possibleOptionElement = $("#battery_id option[value=\"" + gc[2] + "\"]").first();
+			}
+
+			if (possibleOptionElement.length > 0)
+			{
+				tsBattery.setValue(possibleOptionElement.val(), true);
+				$('#battery_id').trigger('change');
+			}
+			else
+			{
+				tsBattery.clear(true);
+				tsBattery.setTextboxValue('');
+				$('#battery_id').trigger('change');
+			}
+		}
+	}
 });
 
-$('#battery_id').val('');
-$('#battery_id_text_input').val('');
-$('#battery_id_text_input').trigger('change');
+tsBattery.clear(true);
+$(tsBattery.control_input).trigger('change');
 Grocy.Components.DateTimePicker.GetInputElement().trigger('input');
 Grocy.FrontendHelpers.ValidateForm('batterytracking-form');
 setTimeout(function()
 {
-	$('#battery_id_text_input').focus();
+	$(tsBattery.control_input).focus();
 }, Grocy.FormFocusDelay);
 
 $('#batterytracking-form input').keyup(function(event)
@@ -122,17 +149,17 @@ $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 	}
 
 	// Don't know why the blur event does not fire immediately ... this works...
-	$("#battery_id_text_input").focusout();
-	$("#battery_id_text_input").focus();
-	$("#battery_id_text_input").blur();
+	$(tsBattery.control_input).focusout();
+	$(tsBattery.control_input).focus();
+	$(tsBattery.control_input).blur();
 
-	$("#battery_id_text_input").val(barcode);
+	tsBattery.setTextboxValue(barcode);
 
 	setTimeout(function()
 	{
-		$("#battery_id_text_input").focusout();
-		$("#battery_id_text_input").focus();
-		$("#battery_id_text_input").blur();
+		$(tsBattery.control_input).focusout();
+		$(tsBattery.control_input).focus();
+		$(tsBattery.control_input).blur();
 		$('#tracked_time').find('input').focus();
 	}, Grocy.FormFocusDelay);
 });
@@ -150,42 +177,6 @@ function UndoChargeCycle(chargeCycleId)
 		}
 	);
 };
-
-$('#battery_id_text_input').on('blur', function(e)
-{
-	if ($('#battery_id').hasClass("combobox-menu-visible"))
-	{
-		return;
-	}
-
-	var input = $('#battery_id_text_input').val().toString();
-	var possibleOptionElement = [];
-
-	// Grocycode handling
-	if (input.startsWith("grcy"))
-	{
-		var gc = input.split(":");
-		if (gc[1] == "b")
-		{
-			possibleOptionElement = $("#battery_id option[value=\"" + gc[2] + "\"]").first();
-		}
-
-
-		if (possibleOptionElement.length > 0)
-		{
-			$('#battery_id').val(possibleOptionElement.val());
-			$('#battery_id').data('combobox').refresh();
-			$('#battery_id').trigger('change');
-		}
-		else
-		{
-			$('#battery_id').val(null);
-			$('#battery_id_text_input').val("");
-			$('#battery_id').data('combobox').refresh();
-			$('#battery_id').trigger('change');
-		}
-	}
-});
 
 $("#tracked_time").find("input").on("focus", function(e)
 {

@@ -7,7 +7,7 @@
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -155,7 +155,7 @@ $('#save-mark-as-open-button').on('click', function(e)
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}

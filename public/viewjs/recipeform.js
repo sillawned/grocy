@@ -295,7 +295,7 @@ $('#save-recipe-include-button').on('click', function(e)
 		return false;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
