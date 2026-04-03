@@ -30,7 +30,7 @@
 		rel="stylesheet">
 	<link href="{{ $U('/packages/@fontsource/roboto/700.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
-	<link href="{{ $U('/packages/bootstrap/dist/css/bootstrap.min.css?v=', true) }}{{ $version }}"
+	<link href="{{ $U('/css/tailwind.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
 	<link href="{{ $U('/packages/@fortawesome/fontawesome-free/css/fontawesome.min.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
@@ -39,26 +39,12 @@
 	<link href="{{ $U('/packages/toastr/build/toastr.min.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
 
-	@if(in_array('bootstrap-combobox', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<link href="{{ $U('/packages/@danielfarrell/bootstrap-combobox/css/bootstrap-combobox.css?v=', true) }}{{ $version }}"
-		rel="stylesheet">
-	@endif
-	@if(in_array('bootstrap-select', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<link href="{{ $U('/packages/bootstrap-select/dist/css/bootstrap-select.min.css?v=', true) }}{{ $version }}"
-		rel="stylesheet">
-	@endif
-	@if(in_array('datatables', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<link href="{{ $U('/packages/datatables.net-bs4/css/dataTables.bootstrap4.min.css?v=', true) }}{{ $version }}"
-		rel="stylesheet">
-	<link href="{{ $U('/packages/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css?v=', true) }}{{ $version }}"
-		rel="stylesheet">
-	<link href="{{ $U('/packages/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css?v=', true) }}{{ $version }}"
-		rel="stylesheet">
-	<link href="{{ $U('/packages/datatables.net-select-bs4/css/select.bootstrap4.min.css?v=', true) }}{{ $version }}"
+	@if(in_array('bootstrap-combobox', $GROCY_REQUIRED_FRONTEND_PACKAGES) || in_array('bootstrap-select', $GROCY_REQUIRED_FRONTEND_PACKAGES))
+	<link href="{{ $U('/packages/tom-select/dist/css/tom-select.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
 	@endif
 	@if(in_array('tempusdominus', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<link href="{{ $U('/packages/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css?v=', true) }}{{ $version }}"
+	<link href="{{ $U('/packages/flatpickr/dist/flatpickr.min.css?v=', true) }}{{ $version }}"
 		rel="stylesheet">
 	@endif
 	@if(in_array('summernote', $GROCY_REQUIRED_FRONTEND_PACKAGES))
@@ -140,12 +126,12 @@
 				height="30">
 		</a>
 		<span id="clock-container"
-			class="text-muted font-italic d-none">
+			class="text-muted italic hidden">
 			<i class="fa-solid fa-clock"></i>
 			<span id="clock-small"
-				class="d-inline d-sm-none"></span>
+				class="inline sm:hidden"></span>
 			<span id="clock-big"
-				class="d-none d-sm-inline"></span>
+				class="hidden sm:inline"></span>
 		</span>
 
 		@if(GROCY_AUTHENTICATED)
@@ -466,7 +452,7 @@
 				</li>
 			</ul>
 
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ml-auto flex-row">
 				@if(GROCY_AUTHENTICATED && !GROCY_IS_EMBEDDED_INSTALL && !GROCY_DISABLE_AUTH)
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle discrete-link @if(!empty(GROCY_USER_PICTURE_FILE_NAME)) py-0 @endif"
@@ -475,7 +461,7 @@
 						@if(empty(GROCY_USER_PICTURE_FILE_NAME))
 						<i class="fa-solid fa-user"></i>
 						@else
-						<img class="rounded-circle"
+						<img class="rounded-full"
 							src="{{ $U('/files/userpictures/' . base64_encode(GROCY_USER_PICTURE_FILE_NAME) . '_' . base64_encode(GROCY_USER_PICTURE_FILE_NAME) . '?force_serve_as=picture&best_fit_width=32&best_fit_height=32') }}"
 							loading="lazy">
 						@endif
@@ -501,7 +487,7 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle discrete-link"
 						href="#"
-						data-toggle="dropdown"><i class="fa-solid fa-sliders-h"></i> <span class="d-inline d-lg-none">{{ $__t('View settings') }}</span></a>
+						data-toggle="dropdown"><i class="fa-solid fa-sliders-h"></i> <span class="inline lg:hidden">{{ $__t('View settings') }}</span></a>
 
 					<div class="dropdown-menu dropdown-menu-right">
 						<div class="dropdown-item">
@@ -632,7 +618,7 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle discrete-link"
 						href="#"
-						data-toggle="dropdown"><i class="fa-solid fa-wrench"></i> <span class="d-inline d-lg-none">{{ $__t('Settings') }}</span></a>
+						data-toggle="dropdown"><i class="fa-solid fa-wrench"></i> <span class="inline lg:hidden">{{ $__t('Settings') }}</span></a>
 
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item discrete-link"
@@ -686,7 +672,7 @@
 	@endif
 
 	<div class="@if(GROCY_AUTHENTICATED) content-wrapper @endif pt-0">
-		<div class="container-fluid @if(GROCY_AUTHENTICATED && !$embedded) pr-1 pl-md-3 pl-2 @endif @if($embedded) px-1 @endif">
+		<div class="container-fluid @if(GROCY_AUTHENTICATED && !$embedded) pr-1 md:pl-3 pl-2 @endif @if($embedded) px-1 @endif">
 			<div class="row mb-3">
 				<div id="page-content"
 					class="col content-text">
@@ -698,7 +684,6 @@
 
 	<script src="{{ $U('/packages/jquery/dist/jquery.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/bootstrap/dist/js/bootstrap.bundle.min.js?v=', true) }}{{ $version }}"></script>
-	<script src="{{ $U('/packages/bootbox/dist/bootbox.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/jquery-serializejson/jquery.serializejson.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/moment/min/moment.min.js?v=', true) }}{{ $version }}"></script>
 	@if(!empty($__t('moment_locale') && $__t('moment_locale') != 'x'))<script src="{{ $U('/packages', true) }}/moment/locale/{{ $__t('moment_locale') }}.js?v={{ $version }}"></script>@endif
@@ -707,31 +692,24 @@
 	<script src="{{ $U('/packages/gettext-translator/dist/translator.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/nosleep.js/dist/NoSleep.min.js?v=', true) }}{{ $version }}"></script>
 
-	@if(in_array('bootstrap-combobox', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<script src="{{ $U('/packages/@danielfarrell/bootstrap-combobox/js/bootstrap-combobox.js?v=', true) }}{{ $version }}"></script>
+	@if(in_array('bootstrap-combobox', $GROCY_REQUIRED_FRONTEND_PACKAGES) || in_array('bootstrap-select', $GROCY_REQUIRED_FRONTEND_PACKAGES))
+	<script src="{{ $U('/packages/tom-select/dist/js/tom-select.complete.min.js?v=', true) }}{{ $version }}"></script>
 	@endif
 	@if(in_array('datatables', $GROCY_REQUIRED_FRONTEND_PACKAGES))
 	<script src="{{ $U('/packages/datatables.net/js/jquery.dataTables.min.js?v=', true) }}{{ $version }}"></script>
-	<script src="{{ $U('/packages/datatables.net-bs4/js/dataTables.bootstrap4.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/datatables.net-colreorder/js/dataTables.colReorder.min.js?v=', true) }}{{ $version }}"></script>
-	<script src="{{ $U('/packages/datatables.net-colreorder-bs4/js/colReorder.bootstrap4.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/datatables.net-plugins/filtering/type-based/accent-neutralise.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/datatables.net-plugins/sorting/chinese-string.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/datatables.net-rowgroup/js/dataTables.rowGroup.min.js?v=', true) }}{{ $version }}"></script>
-	<script src="{{ $U('/packages/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/datatables.net-select/js/dataTables.select.min.js?v=', true) }}{{ $version }}"></script>
-	<script src="{{ $U('/packages/datatables.net-select-bs4/js/select.bootstrap4.min.js?v=', true) }}{{ $version }}"></script>
 	@endif
 	@if(in_array('tempusdominus', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<script src="{{ $U('/packages/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js?v=', true) }}{{ $version }}"></script>
+	<script src="{{ $U('/packages/flatpickr/dist/flatpickr.min.js?v=', true) }}{{ $version }}"></script>
+	@if(!empty($__t('flatpickr_locale') && $__t('flatpickr_locale') != 'x'))<script src="{{ $U('/packages', true) }}/flatpickr/dist/l10n/{{ $__t('flatpickr_locale') }}.js?v={{ $version }}"></script>@endif
 	@endif
 	@if(in_array('summernote', $GROCY_REQUIRED_FRONTEND_PACKAGES))
 	<script src="{{ $U('/packages/summernote/dist/summernote-bs4.min.js?v=', true) }}{{ $version }}"></script>
 	@if(!empty($__t('summernote_locale') && $__t('summernote_locale') != 'x'))<script src="{{ $U('/packages', true) }}/summernote/dist/lang/summernote-{{ $__t('summernote_locale') }}.js?v={{ $version }}"></script>@endif
-	@endif
-	@if(in_array('bootstrap-select', $GROCY_REQUIRED_FRONTEND_PACKAGES))
-	<script src="{{ $U('/packages/bootstrap-select/dist/js/bootstrap-select.min.js?v=', true) }}{{ $version }}"></script>
-	@if(!empty($__t('bootstrap-select_locale') && $__t('bootstrap-select_locale') != 'x'))<script src="{{ $U('/packages', true) }}/bootstrap-select/dist/js/i18n/defaults-{{ $__t('bootstrap-select_locale') }}.js?v={{ $version }}"></script>@endif
 	@endif
 	@if(in_array('fullcalendar', $GROCY_REQUIRED_FRONTEND_PACKAGES))
 	<script src="{{ $U('/packages/fullcalendar/dist/fullcalendar.min.js?v=', true) }}{{ $version }}"></script>
