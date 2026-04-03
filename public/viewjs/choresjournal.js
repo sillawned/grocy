@@ -6,7 +6,7 @@
 		{ 'visible': false, 'targets': 4 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#chores-journal-table tbody').removeClass("d-none");
+$('#chores-journal-table tbody').removeClass("hidden");
 choresJournalTable.columns.adjust().draw();
 
 $("#chore-filter").on("change", function()

@@ -7,7 +7,7 @@
 		{ "type": "html", "targets": 4 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#batteries-overview-table tbody').removeClass("d-none");
+$('#batteries-overview-table tbody').removeClass("hidden");
 batteriesOverviewTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

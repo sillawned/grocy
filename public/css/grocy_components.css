@@ -1305,3 +1305,42 @@
 		}
 	}
 }
+
+/* Bootstrap display utility compatibility — used in dynamically generated JS HTML */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+
+@media (min-width: 576px) {
+	.d-sm-none { display: none !important; }
+	.d-sm-block { display: block !important; }
+	.d-sm-inline { display: inline !important; }
+	.d-sm-inline-block { display: inline-block !important; }
+	.d-sm-flex { display: flex !important; }
+}
+
+@media (min-width: 768px) {
+	.d-md-none { display: none !important; }
+	.d-md-block { display: block !important; }
+	.d-md-inline { display: inline !important; }
+	.d-md-inline-block { display: inline-block !important; }
+	.d-md-flex { display: flex !important; }
+}
+
+@media (min-width: 992px) {
+	.d-lg-none { display: none !important; }
+	.d-lg-block { display: block !important; }
+	.d-lg-inline { display: inline !important; }
+	.d-lg-inline-block { display: inline-block !important; }
+	.d-lg-flex { display: flex !important; }
+}
+
+@media print {
+	.d-print-none { display: none !important; }
+	.d-print-block { display: block !important; }
+	.d-print-inline { display: inline !important; }
+	.d-print-flex { display: flex !important; }
+}

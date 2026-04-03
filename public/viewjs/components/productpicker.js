@@ -1,4 +1,5 @@
 Grocy.Components.ProductPicker = {};
+Grocy.Components.ProductPicker._tsInstance = null;
 
 Grocy.Components.ProductPicker.GetPicker = function()
 {
@@ -7,7 +8,7 @@ Grocy.Components.ProductPicker.GetPicker = function()
 
 Grocy.Components.ProductPicker.GetInputElement = function()
 {
-	return $('#product_id_text_input');
+	return $(Grocy.Components.ProductPicker._tsInstance.control_input);
 }
 
 Grocy.Components.ProductPicker.GetValue = function()
@@ -17,15 +18,22 @@ Grocy.Components.ProductPicker.GetValue = function()
 
 Grocy.Components.ProductPicker.SetValue = function(value)
 {
-	Grocy.Components.ProductPicker.GetInputElement().val(value);
-	Grocy.Components.ProductPicker.GetInputElement().trigger('change');
+	Grocy.Components.ProductPicker._tsInstance.setTextboxValue(value);
+	$(Grocy.Components.ProductPicker._tsInstance.control_input).trigger('change');
 }
 
 Grocy.Components.ProductPicker.SetId = function(value)
 {
-	Grocy.Components.ProductPicker.GetPicker().val(value);
-	Grocy.Components.ProductPicker.GetPicker().data('combobox').refresh();
-	Grocy.Components.ProductPicker.GetInputElement().trigger('change');
+	if (value === null || value === '' || value === undefined)
+	{
+		Grocy.Components.ProductPicker._tsInstance.clear(true);
+	}
+	else
+	{
+		Grocy.Components.ProductPicker._tsInstance.setValue(String(value), true);
+	}
+	$('#product_id').attr("barcode", "null");
+	Grocy.Components.ProductPicker.GetPicker().trigger('change');
 }
 
 Grocy.Components.ProductPicker.Clear = function()
@@ -66,101 +74,34 @@ Grocy.Components.ProductPicker.ShowCustomError = function(text)
 {
 	var element = $("#custom-productpicker-error");
 	element.text(text);
-	element.removeClass("d-none");
+	element.removeClass("hidden");
 }
 
 Grocy.Components.ProductPicker.HideCustomError = function()
 {
-	$("#custom-productpicker-error").addClass("d-none");
+	$("#custom-productpicker-error").addClass("hidden");
 }
 
 Grocy.Components.ProductPicker.Disable = function()
 {
-	Grocy.Components.ProductPicker.GetInputElement().attr("disabled", "");
+	Grocy.Components.ProductPicker._tsInstance.disable();
 	$("#camerabarcodescanner-start-button").attr("disabled", "");
 	$("#camerabarcodescanner-start-button").addClass("disabled");
 }
 
 Grocy.Components.ProductPicker.Enable = function()
 {
-	Grocy.Components.ProductPicker.GetInputElement().removeAttr("disabled");
+	Grocy.Components.ProductPicker._tsInstance.enable();
 	$("#camerabarcodescanner-start-button").removeAttr("disabled");
 	$("#camerabarcodescanner-start-button").removeClass("disabled");
 }
 
-$('.product-combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4',
-	clearIfNoMatch: false
-});
-
-var prefillProduct = GetUriParam('product-name');
-var prefillProduct2 = Grocy.Components.ProductPicker.GetPicker().parent().data('prefill-by-name').toString();
-if (prefillProduct2)
-{
-	prefillProduct = prefillProduct2;
-}
-if (typeof prefillProduct !== "undefined")
-{
-	var possibleOptionElement = $("#product_id option[data-additional-searchdata*=\"" + prefillProduct + "\"]").first();
-	if (possibleOptionElement.length === 0)
-	{
-		possibleOptionElement = $("#product_id option:contains(\"" + prefillProduct + "\")").first();
-	}
-
-	if (possibleOptionElement.length > 0)
-	{
-		$('#product_id').val(possibleOptionElement.val());
-		$('#product_id').data('combobox').refresh();
-		$('#product_id').trigger('change');
-
-		var nextInputElement = $(Grocy.Components.ProductPicker.GetPicker().parent().data('next-input-selector').toString());
-		nextInputElement.focus();
-	}
-}
-
-var prefillProductId = GetUriParam("product");
-var prefillProductId2 = Grocy.Components.ProductPicker.GetPicker().parent().data('prefill-by-id').toString();
-if (prefillProductId2)
-{
-	prefillProductId = prefillProductId2;
-}
-if (typeof prefillProductId !== "undefined")
-{
-	$('#product_id').val(prefillProductId);
-
-	if ($('#product_id').val() != null)
-	{
-		$('#product_id').data('combobox').refresh();
-		$('#product_id').trigger('change');
-
-		var nextInputElement = $(Grocy.Components.ProductPicker.GetPicker().parent().data('next-input-selector').toString());
-		nextInputElement.focus();
-	}
-	else
-	{
-		Grocy.Components.ProductPicker.GetInputElement().focus();
-	}
-}
-
-if (GetUriParam("flow") === "InplaceAddBarcodeToExistingProduct")
-{
-	$('#InplaceAddBarcodeToExistingProduct').text(GetUriParam("barcode"));
-	$('#flow-info-InplaceAddBarcodeToExistingProduct').removeClass('d-none');
-	$('#barcode-lookup-disabled-hint').removeClass('d-none');
-	$('#barcode-lookup-hint').addClass('d-none');
-}
-
 Grocy.Components.ProductPicker.PopupOpen = false;
-$('#product_id_text_input').on('blur', function(e)
+
+function _ProductPickerHandleBlur(input)
 {
-	if (Grocy.Components.ProductPicker.GetPicker().hasClass("combobox-menu-visible"))
-	{
-		return;
-	}
 	$('#product_id').attr("barcode", "null");
 
-	var input = $('#product_id_text_input').val().toString();
 	var possibleOptionElement = [];
 
 	// Grocycode handling
@@ -181,9 +122,8 @@ $('#product_id_text_input').on('blur', function(e)
 
 	if (GetUriParam('flow') === undefined && input.length > 0 && possibleOptionElement.length > 0)
 	{
-		$('#product_id').val(possibleOptionElement.val());
+		Grocy.Components.ProductPicker._tsInstance.setValue(possibleOptionElement.val(), true);
 		$('#product_id').attr("barcode", input);
-		$('#product_id').data('combobox').refresh();
 		$('#product_id').trigger('change');
 	}
 	else
@@ -199,7 +139,7 @@ $('#product_id_text_input').on('blur', function(e)
 			var addProductWorkflowsAdditionalCssClasses = "";
 			if (Grocy.Components.ProductPicker.GetPicker().parent().data('disallow-add-product-workflows').toString() === "true")
 			{
-				addProductWorkflowsAdditionalCssClasses = "d-none";
+				addProductWorkflowsAdditionalCssClasses = "hidden";
 			}
 
 			var embedded = "";
@@ -351,23 +291,23 @@ $('#product_id_text_input').on('blur', function(e)
 								{
 									if (e.key === 'B' || e.key === 'b')
 									{
-										$('.add-new-barcode-dialog-button').not(".d-none").click();
+										$('.add-new-barcode-dialog-button').not(".hidden").click();
 									}
 									else if (e.key === 'p' || e.key === 'P')
 									{
-										$('.add-new-product-dialog-button').not(".d-none").click();
+										$('.add-new-product-dialog-button').not(".hidden").click();
 									}
 									else if (e.key === 'a' || e.key === 'A')
 									{
-										$('.add-new-product-with-barcode-dialog-button').not(".d-none").click();
+										$('.add-new-product-with-barcode-dialog-button').not(".hidden").click();
 									}
 									else if (e.key === 'c' || e.key === 'C')
 									{
-										$('.retry-camera-scanning-button').not(".d-none").click();
+										$('.retry-camera-scanning-button').not(".hidden").click();
 									}
 									else if (e.key === 'e' || e.key === 'E')
 									{
-										$('.add-new-product-plugin-dialog-button').not(".d-none").click();
+										$('.add-new-product-plugin-dialog-button').not(".hidden").click();
 									}
 								});
 							}
@@ -396,6 +336,91 @@ $('#product_id_text_input').on('blur', function(e)
 			);
 		}
 	}
+}
+
+Grocy.Components.ProductPicker._tsInstance = new TomSelect('#product_id', {
+	allowEmptyOption: true,
+	create: false,
+	searchField: ['text', 'data-additional-searchdata'],
+	onBlur: function()
+	{
+		if (Grocy.Components.ProductPicker._tsInstance.isOpen)
+		{
+			return;
+		}
+
+		var input = Grocy.Components.ProductPicker._tsInstance.control_input.value.toString();
+		_ProductPickerHandleBlur(input);
+	}
+});
+
+var prefillProduct = GetUriParam('product-name');
+var prefillProduct2 = Grocy.Components.ProductPicker.GetPicker().parent().data('prefill-by-name').toString();
+if (prefillProduct2)
+{
+	prefillProduct = prefillProduct2;
+}
+if (typeof prefillProduct !== "undefined")
+{
+	var possibleOptionElement = $("#product_id option[data-additional-searchdata*=\"" + prefillProduct + "\"]").first();
+	if (possibleOptionElement.length === 0)
+	{
+		possibleOptionElement = $("#product_id option:contains(\"" + prefillProduct + "\")").first();
+	}
+
+	if (possibleOptionElement.length > 0)
+	{
+		Grocy.Components.ProductPicker._tsInstance.setValue(possibleOptionElement.val(), true);
+		$('#product_id').trigger('change');
+
+		var nextInputElement = $(Grocy.Components.ProductPicker.GetPicker().parent().data('next-input-selector').toString());
+		nextInputElement.focus();
+	}
+}
+
+var prefillProductId = GetUriParam("product");
+var prefillProductId2 = Grocy.Components.ProductPicker.GetPicker().parent().data('prefill-by-id').toString();
+if (prefillProductId2)
+{
+	prefillProductId = prefillProductId2;
+}
+if (typeof prefillProductId !== "undefined")
+{
+	Grocy.Components.ProductPicker._tsInstance.setValue(prefillProductId, true);
+
+	if ($('#product_id').val() != null)
+	{
+		$('#product_id').trigger('change');
+
+		var nextInputElement = $(Grocy.Components.ProductPicker.GetPicker().parent().data('next-input-selector').toString());
+		nextInputElement.focus();
+	}
+	else
+	{
+		Grocy.Components.ProductPicker.GetInputElement().focus();
+	}
+}
+
+if (GetUriParam("flow") === "InplaceAddBarcodeToExistingProduct")
+{
+	$('#InplaceAddBarcodeToExistingProduct').text(GetUriParam("barcode"));
+	$('#flow-info-InplaceAddBarcodeToExistingProduct').removeClass('hidden');
+	$('#barcode-lookup-disabled-hint').removeClass('hidden');
+	$('#barcode-lookup-hint').addClass('hidden');
+}
+
+// Make that ENTER behaves the same like TAB (trigger blur to start workflows, but only when the dropdown is not opened)
+$(Grocy.Components.ProductPicker._tsInstance.control_input).keydown(function(event)
+{
+	if (event.keyCode === 13) // Enter
+	{
+		if (Grocy.Components.ProductPicker._tsInstance.isOpen)
+		{
+			return;
+		}
+
+		$(Grocy.Components.ProductPicker._tsInstance.control_input).trigger("blur");
+	}
 });
 
 $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
@@ -410,7 +435,7 @@ $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 	Grocy.Components.ProductPicker.GetInputElement().focus();
 	Grocy.Components.ProductPicker.GetInputElement().blur();
 
-	Grocy.Components.ProductPicker.GetInputElement().val(barcode);
+	Grocy.Components.ProductPicker._tsInstance.setTextboxValue(barcode);
 
 	setTimeout(function()
 	{
@@ -418,24 +443,4 @@ $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 		Grocy.Components.ProductPicker.GetInputElement().focus();
 		Grocy.Components.ProductPicker.GetInputElement().blur();
 	}, Grocy.FormFocusDelay);
-});
-
-$(document).on("shown.bs.modal", function(e)
-{
-	$(".modal-footer").addClass("d-block").addClass("d-sm-flex");
-	$(".modal-footer").find("button").addClass("mt-2").addClass("mt-sm-0");
-})
-
-// Make that ENTER behaves the same like TAB (trigger blur to start workflows, but only when the dropdown is not opened)
-$('#product_id_text_input').keydown(function(event)
-{
-	if (event.keyCode === 13) // Enter
-	{
-		if (Grocy.Components.ProductPicker.GetPicker().hasClass("combobox-menu-visible"))
-		{
-			return;
-		}
-
-		$("#product_id_text_input").trigger("blur");
-	}
 });

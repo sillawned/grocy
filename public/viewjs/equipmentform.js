@@ -137,11 +137,11 @@ Grocy.DeleteInstructionManualOnSave = false;
 $('#delete-current-instruction-manual-button').on('click', function(e)
 {
 	Grocy.DeleteInstructionManualOnSave = true;
-	$("#current-equipment-instruction-manual").addClass("d-none");
-	$("#delete-current-instruction-manual-on-save-hint").removeClass("d-none");
+	$("#current-equipment-instruction-manual").addClass("hidden");
+	$("#delete-current-instruction-manual-on-save-hint").removeClass("hidden");
 	$("#delete-current-instruction-manual-button").addClass("disabled");
-	$("#instruction-manual-label").addClass("d-none");
-	$("#instruction-manual-label-none").removeClass("d-none");
+	$("#instruction-manual-label").addClass("hidden");
+	$("#instruction-manual-label-none").removeClass("hidden");
 });
 ResizeResponsiveEmbeds();
 
@@ -154,9 +154,9 @@ setTimeout(function()
 
 $("#instruction-manual").on("change", function(e)
 {
-	$("#instruction-manual-label").removeClass("d-none");
-	$("#instruction-manual-label-none").addClass("d-none");
-	$("#delete-current-instruction-manual-on-save-hint").addClass("d-none");
-	$("#current-instruction-manuale").addClass("d-none");
+	$("#instruction-manual-label").removeClass("hidden");
+	$("#instruction-manual-label-none").addClass("hidden");
+	$("#delete-current-instruction-manual-on-save-hint").addClass("hidden");
+	$("#current-instruction-manuale").addClass("hidden");
 	Grocy.DeleteProductPictureOnSave = false;
 });

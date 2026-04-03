@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('.userobjects-table tbody').removeClass("d-none");
+$('.userobjects-table tbody').removeClass("hidden");
 userobjectsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

@@ -46,9 +46,9 @@
 						Grocy.Api.Post('objects/product_barcodes', jsonDataBarcode,
 							function(result)
 							{
-								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("d-none");
-								$('#barcode-lookup-disabled-hint').addClass('d-none');
-								$('#barcode-lookup-hint').removeClass('d-none');
+								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("hidden");
+								$('#barcode-lookup-disabled-hint').addClass('hidden');
+								$('#barcode-lookup-hint').removeClass('hidden');
 								window.history.replaceState({}, document.title, U("/transfer"));
 							},
 							function(xhr)
@@ -109,7 +109,7 @@
 						$('#display_amount').val(Grocy.UserSettings.stock_default_transfer_amount);
 						RefreshLocaleNumberInput();
 						$(".input-group-productamountpicker").trigger("change");
-						$("#tare-weight-handling-info").addClass("d-none");
+						$("#tare-weight-handling-info").addClass("hidden");
 						Grocy.Components.ProductPicker.Clear();
 						$("#location_id_to").val("");
 						$("#location_id_from").val("");
@@ -268,12 +268,12 @@ Grocy.Components.ProductPicker.GetPicker().on('change', function(e)
 				if (productDetails.product.enable_tare_weight_handling == 1)
 				{
 					$("#display_amount").attr("min", productDetails.product.tare_weight);
-					$("#tare-weight-handling-info").removeClass("d-none");
+					$("#tare-weight-handling-info").removeClass("hidden");
 				}
 				else
 				{
 					$("#display_amount").attr("min", Grocy.DefaultMinAmount);
-					$("#tare-weight-handling-info").addClass("d-none");
+					$("#tare-weight-handling-info").addClass("hidden");
 				}
 
 				$('#display_amount').attr("data-stock-amount", productDetails.stock_amount);

@@ -146,7 +146,7 @@ var quConversionsTable = $('#qu-conversions-table').DataTable({
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#qu-conversions-table tbody').removeClass("d-none");
+$('#qu-conversions-table tbody').removeClass("hidden");
 quConversionsTable.columns.adjust().draw();
 
 Grocy.Components.UserfieldsForm.Load();

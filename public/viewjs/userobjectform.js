@@ -69,7 +69,7 @@
 });
 
 Grocy.Components.UserfieldsForm.Load();
-$("#userfields-form").removeClass("border").removeClass("border-info").removeClass("p-2").find("h2").addClass("d-none");
+$("#userfields-form").removeClass("border").removeClass("border-info").removeClass("p-2").find("h2").addClass("hidden");
 
 setTimeout(function()
 {

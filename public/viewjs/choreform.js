@@ -152,8 +152,8 @@ $('.input-group-chore-period-type').on('change keyup', function(e)
 	var periodDays = $('#period_days').val();
 	var periodInterval = $('#period_interval').val();
 
-	$(".period-type-input").addClass("d-none");
-	$(".period-type-" + periodType).removeClass("d-none");
+	$(".period-type-input").addClass("hidden");
+	$(".period-type-" + periodType).removeClass("hidden");
 	$("#period_config").val("");
 
 	if (periodType === 'manually')

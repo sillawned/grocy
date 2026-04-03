@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#productgroups-table tbody').removeClass("d-none");
+$('#productgroups-table tbody').removeClass("hidden");
 groupsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

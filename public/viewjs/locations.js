@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#locations-table tbody').removeClass("d-none");
+$('#locations-table tbody').removeClass("hidden");
 locationsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

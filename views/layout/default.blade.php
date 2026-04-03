@@ -91,6 +91,7 @@
 		Grocy.EnergyUnit = '{{ GROCY_ENERGY_UNIT }}';
 		Grocy.CalendarFirstDayOfWeek = '{{ GROCY_CALENDAR_FIRST_DAY_OF_WEEK }}';
 		Grocy.CalendarShowWeekNumbers = {{ BoolToString(GROCY_CALENDAR_SHOW_WEEK_OF_YEAR) }};
+		Grocy.FlatpickrLocale = '{{ $__t('flatpickr_locale') }}';
 		Grocy.LocalizationStrings = {!! $LocalizationStrings !!};
 		Grocy.LocalizationStringsQu = {!! $LocalizationStringsQu !!};
 		Grocy.FeatureFlags = {!! json_encode($featureFlags) !!};
@@ -691,6 +692,7 @@
 	<script src="{{ $U('/packages/sprintf-js/dist/sprintf.min.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/gettext-translator/dist/translator.js?v=', true) }}{{ $version }}"></script>
 	<script src="{{ $U('/packages/nosleep.js/dist/NoSleep.min.js?v=', true) }}{{ $version }}"></script>
+	<script src="{{ $U('/packages/bootbox/dist/bootbox.min.js?v=', true) }}{{ $version }}"></script>
 
 	@if(in_array('bootstrap-combobox', $GROCY_REQUIRED_FRONTEND_PACKAGES) || in_array('bootstrap-select', $GROCY_REQUIRED_FRONTEND_PACKAGES))
 	<script src="{{ $U('/packages/tom-select/dist/js/tom-select.complete.min.js?v=', true) }}{{ $version }}"></script>

@@ -38,8 +38,7 @@
 			id="{{ $id }}"
 			@if(!$noNameAttribute)
 			name="{{ $id }}"
-			@endif
-			data-target-input="nearest">
+			@endif>
 			<input {!!
 				$additionalAttributes
 				!!}
@@ -51,7 +50,7 @@
 				required
 				@endif
 				class="form-control datetimepicker-input @if(!empty($additionalCssClasses)){{ $additionalCssClasses }}@endif"
-				data-target="#{{ $id }}"
+				data-input
 				data-format="{{ $format }}"
 				data-init-with-now="{{ BoolToString($initWithNow) }}"
 				data-init-value="{{ $initialValue }}"
@@ -60,8 +59,7 @@
 				data-next-input-selector="{{ $nextInputSelector }}"
 				data-earlier-than-limit="{{ $earlierThanInfoLimit }}" />
 			<div class="input-group-append"
-				data-target="#{{ $id }}"
-				data-toggle="datetimepicker">
+				data-toggle>
 				<div class="input-group-text"><i class="fa-solid fa-calendar"></i></div>
 			</div>
 			<div class="invalid-feedback">{{ $invalidFeedback }}</div>

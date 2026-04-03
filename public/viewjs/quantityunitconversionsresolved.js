@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#qu-conversions-resolved-table tbody').removeClass("d-none");
+$('#qu-conversions-resolved-table tbody').removeClass("hidden");
 quConversionsResolvedTable.columns.adjust().draw();
 
 $("#quantity-unit-filter").on("change", function()

@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#batteries-journal-table tbody').removeClass("d-none");
+$('#batteries-journal-table tbody').removeClass("hidden");
 batteriesJournalTable.columns.adjust().draw();
 
 $("#battery-filter").on("change", function()

@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#stock-journal-table tbody').removeClass("d-none");
+$('#stock-journal-table tbody').removeClass("hidden");
 stockJournalTable.columns.adjust().draw();
 
 $("#product-filter").on("change", function()

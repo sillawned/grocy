@@ -6,7 +6,7 @@
 		{ "type": "html", "targets": 2 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#tasks-table tbody').removeClass("d-none");
+$('#tasks-table tbody').removeClass("hidden");
 tasksTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

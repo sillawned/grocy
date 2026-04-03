@@ -14,7 +14,7 @@
 		DisplayEquipment($('#equipment-table tbody tr:eq(0)').data("equipment-id"));
 	}
 });
-$('#equipment-table tbody').removeClass("d-none");
+$('#equipment-table tbody').removeClass("hidden");
 equipmentTable.columns.adjust().draw();
 
 equipmentTable.on('select', function(e, dt, type, indexes)
@@ -40,18 +40,18 @@ function DisplayEquipment(id)
 				var pdfUrl = U('/api/files/equipmentmanuals/' + btoa(equipmentItem.instruction_manual_file_name));
 				$("#selected-equipment-instruction-manual").attr("src", pdfUrl);
 				$("#selectedEquipmentInstructionManualDownloadButton").attr("href", pdfUrl);
-				$("#selected-equipment-instruction-manual").removeClass("d-none");
-				$("#selectedEquipmentInstructionManualDownloadButton").removeClass("d-none");
-				$("#selected-equipment-has-no-instruction-manual-hint").addClass("d-none");
+				$("#selected-equipment-instruction-manual").removeClass("hidden");
+				$("#selectedEquipmentInstructionManualDownloadButton").removeClass("hidden");
+				$("#selected-equipment-has-no-instruction-manual-hint").addClass("hidden");
 
 				$("a[href='#instruction-manual-tab']").tab("show");
 				ResizeResponsiveEmbeds();
 			}
 			else
 			{
-				$("#selected-equipment-instruction-manual").addClass("d-none");
-				$("#selectedEquipmentInstructionManualDownloadButton").addClass("d-none");
-				$("#selected-equipment-has-no-instruction-manual-hint").removeClass("d-none");
+				$("#selected-equipment-instruction-manual").addClass("hidden");
+				$("#selectedEquipmentInstructionManualDownloadButton").addClass("hidden");
+				$("#selected-equipment-has-no-instruction-manual-hint").removeClass("hidden");
 
 				$("a[href='#description-tab']").tab("show");
 			}
@@ -69,16 +69,16 @@ function DisplayEquipment(id)
 								var pdfUrl = U('/files/userfiles/' + userfieldFile);
 								$("#file-userfield-" + userfield.name + "-embed").attr("src", pdfUrl);
 								$("#file-userfield-" + userfield.name + "-download-button").attr("href", pdfUrl);
-								$("#file-userfield-" + userfield.name + "-embed").removeClass("d-none");
-								$("#file-userfield-" + userfield.name + "-download-button").removeClass("d-none");
-								$("#file-userfield-" + userfield.name + "-empty-hint").addClass("d-none");
+								$("#file-userfield-" + userfield.name + "-embed").removeClass("hidden");
+								$("#file-userfield-" + userfield.name + "-download-button").removeClass("hidden");
+								$("#file-userfield-" + userfield.name + "-empty-hint").addClass("hidden");
 								ResizeResponsiveEmbeds();
 							}
 							else
 							{
-								$("#file-userfield-" + userfield.name + "-embed").addClass("d-none");
-								$("#file-userfield-" + userfield.name + "-download-button").addClass("d-none");
-								$("#file-userfield-" + userfield.name + "-empty-hint").removeClass("d-none");
+								$("#file-userfield-" + userfield.name + "-embed").addClass("hidden");
+								$("#file-userfield-" + userfield.name + "-download-button").addClass("hidden");
+								$("#file-userfield-" + userfield.name + "-empty-hint").removeClass("hidden");
 							}
 						});
 					},

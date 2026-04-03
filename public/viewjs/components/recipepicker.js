@@ -1,4 +1,5 @@
 Grocy.Components.RecipePicker = {};
+Grocy.Components.RecipePicker._tsInstance = null;
 
 Grocy.Components.RecipePicker.GetPicker = function()
 {
@@ -7,7 +8,7 @@ Grocy.Components.RecipePicker.GetPicker = function()
 
 Grocy.Components.RecipePicker.GetInputElement = function()
 {
-	return $('#recipe_id_text_input');
+	return $(Grocy.Components.RecipePicker._tsInstance.control_input);
 }
 
 Grocy.Components.RecipePicker.GetValue = function()
@@ -17,15 +18,21 @@ Grocy.Components.RecipePicker.GetValue = function()
 
 Grocy.Components.RecipePicker.SetValue = function(value)
 {
-	Grocy.Components.RecipePicker.GetInputElement().val(value);
-	Grocy.Components.RecipePicker.GetInputElement().trigger('change');
+	Grocy.Components.RecipePicker._tsInstance.setTextboxValue(value);
+	$(Grocy.Components.RecipePicker._tsInstance.control_input).trigger('change');
 }
 
 Grocy.Components.RecipePicker.SetId = function(value)
 {
-	Grocy.Components.RecipePicker.GetPicker().val(value);
-	Grocy.Components.RecipePicker.GetPicker().data('combobox').refresh();
-	Grocy.Components.RecipePicker.GetInputElement().trigger('change');
+	if (value === null || value === '' || value === undefined)
+	{
+		Grocy.Components.RecipePicker._tsInstance.clear(true);
+	}
+	else
+	{
+		Grocy.Components.RecipePicker._tsInstance.setValue(String(value), true);
+	}
+	Grocy.Components.RecipePicker.GetPicker().trigger('change');
 }
 
 Grocy.Components.RecipePicker.Clear = function()
@@ -34,10 +41,41 @@ Grocy.Components.RecipePicker.Clear = function()
 	Grocy.Components.RecipePicker.SetId(null);
 }
 
-$('.recipe-combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4',
-	clearIfNoMatch: false
+Grocy.Components.RecipePicker._tsInstance = new TomSelect('#recipe_id', {
+	allowEmptyOption: true,
+	create: false,
+	onBlur: function()
+	{
+		if (Grocy.Components.RecipePicker._tsInstance.isOpen)
+		{
+			return;
+		}
+
+		var input = Grocy.Components.RecipePicker._tsInstance.control_input.value.toString();
+		var possibleOptionElement = [];
+
+		// Grocycode handling
+		if (input.startsWith("grcy"))
+		{
+			var gc = input.split(":");
+			if (gc[1] == "r")
+			{
+				possibleOptionElement = $("#recipe_id option[value=\"" + gc[2] + "\"]").first();
+			}
+
+			if (possibleOptionElement.length > 0)
+			{
+				Grocy.Components.RecipePicker._tsInstance.setValue(possibleOptionElement.val(), true);
+				$('#recipe_id').trigger('change');
+			}
+			else
+			{
+				Grocy.Components.RecipePicker._tsInstance.clear(true);
+				Grocy.Components.RecipePicker._tsInstance.setTextboxValue('');
+				$('#recipe_id').trigger('change');
+			}
+		}
+	}
 });
 
 var prefillByName = Grocy.Components.RecipePicker.GetPicker().parent().data('prefill-by-name').toString();
@@ -47,8 +85,7 @@ if (typeof prefillByName !== "undefined")
 
 	if (possibleOptionElement.length > 0)
 	{
-		$('#recipe_id').val(possibleOptionElement.val());
-		$('#recipe_id').data('combobox').refresh();
+		Grocy.Components.RecipePicker._tsInstance.setValue(possibleOptionElement.val(), true);
 		$('#recipe_id').trigger('change');
 
 		var nextInputElement = $(Grocy.Components.RecipePicker.GetPicker().parent().data('next-input-selector').toString());
@@ -59,48 +96,12 @@ if (typeof prefillByName !== "undefined")
 var prefillById = Grocy.Components.RecipePicker.GetPicker().parent().data('prefill-by-id').toString();
 if (typeof prefillById !== "undefined")
 {
-	$('#recipe_id').val(prefillById);
-	$('#recipe_id').data('combobox').refresh();
+	Grocy.Components.RecipePicker._tsInstance.setValue(prefillById, true);
 	$('#recipe_id').trigger('change');
 
 	var nextInputElement = $(Grocy.Components.RecipePicker.GetPicker().parent().data('next-input-selector').toString());
 	nextInputElement.focus();
 }
-
-$('#recipe_id_text_input').on('blur', function(e)
-{
-	if ($('#recipe_id').hasClass("combobox-menu-visible"))
-	{
-		return;
-	}
-
-	var input = $('#recipe_id_text_input').val().toString();
-	var possibleOptionElement = [];
-
-	// Grocycode handling
-	if (input.startsWith("grcy"))
-	{
-		var gc = input.split(":");
-		if (gc[1] == "r")
-		{
-			possibleOptionElement = $("#recipe_id option[value=\"" + gc[2] + "\"]").first();
-		}
-
-		if (possibleOptionElement.length > 0)
-		{
-			$('#recipe_id').val(possibleOptionElement.val());
-			$('#recipe_id').data('combobox').refresh();
-			$('#recipe_id').trigger('change');
-		}
-		else
-		{
-			$('#recipe_id').val(null);
-			$('#recipe_id_text_input').val("");
-			$('#recipe_id').data('combobox').refresh();
-			$('#recipe_id').trigger('change');
-		}
-	}
-});
 
 $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 {
@@ -114,7 +115,7 @@ $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 	Grocy.Components.RecipePicker.GetInputElement().focus();
 	Grocy.Components.RecipePicker.GetInputElement().blur();
 
-	Grocy.Components.RecipePicker.GetInputElement().val(barcode);
+	Grocy.Components.RecipePicker._tsInstance.setTextboxValue(barcode);
 
 	setTimeout(function()
 	{

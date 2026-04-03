@@ -327,7 +327,7 @@ $(".calendar").each(function()
 				}
 				else
 				{
-					$(".calendar").addClass("d-none");
+					$(".calendar").addClass("hidden");
 					window.location.reload();
 					return false;
 				}
@@ -345,8 +345,8 @@ $(".calendar").each(function()
 
 				if (!Grocy.FeatureFlags.GROCY_FEATURE_FLAG_STOCK)
 				{
-					$(".recipe-order-missing-button").addClass("d-none");
-					$(".recipe-consume-button").addClass("d-none");
+					$(".recipe-order-missing-button").addClass("hidden");
+					$(".recipe-consume-button").addClass("hidden");
 				}
 			}
 		}

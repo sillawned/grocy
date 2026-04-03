@@ -121,10 +121,10 @@ $('#user-form input').keydown(function(event)
 
 $("#user-picture").on("change", function(e)
 {
-	$("#user-picture-label").removeClass("d-none");
-	$("#user-picture-label-none").addClass("d-none");
-	$("#delete-current-user-picture-on-save-hint").addClass("d-none");
-	$("#current-user-picture").addClass("d-none");
+	$("#user-picture-label").removeClass("hidden");
+	$("#user-picture-label-none").addClass("hidden");
+	$("#delete-current-user-picture-on-save-hint").addClass("hidden");
+	$("#current-user-picture").addClass("hidden");
 	Grocy.DeleteUserePictureOnSave = false;
 });
 
@@ -132,10 +132,10 @@ Grocy.DeleteUserPictureOnSave = false;
 $("#delete-current-user-picture-button").on("click", function(e)
 {
 	Grocy.DeleteUserPictureOnSave = true;
-	$("#current-user-picture").addClass("d-none");
-	$("#delete-current-user-picture-on-save-hint").removeClass("d-none");
-	$("#user-picture-label").addClass("d-none");
-	$("#user-picture-label-none").removeClass("d-none");
+	$("#current-user-picture").addClass("hidden");
+	$("#delete-current-user-picture-on-save-hint").removeClass("hidden");
+	$("#user-picture-label").addClass("hidden");
+	$("#user-picture-label-none").removeClass("hidden");
 });
 
 $("#change_password").click(function()

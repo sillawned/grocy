@@ -11,7 +11,6 @@
 		<i class="fa-solid fa-calendar"></i> {{ $__t('Calendar') }}
 	</div>
 	<div class="card-body">
-		<div id="calendar"
-			data-target-input="nearest"></div>
+		<div id="calendar"></div>
 	</div>
 </div>

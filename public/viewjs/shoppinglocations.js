@@ -5,7 +5,7 @@ var locationsTable = $('#shoppinglocations-table').DataTable({
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#shoppinglocations-table tbody').removeClass("d-none");
+$('#shoppinglocations-table tbody').removeClass("hidden");
 locationsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

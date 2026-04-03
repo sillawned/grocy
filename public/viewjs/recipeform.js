@@ -92,7 +92,7 @@ var recipesPosTables = $('#recipes-pos-table').DataTable({
 		dataSrc: 4
 	}
 });
-$('#recipes-pos-table tbody').removeClass("d-none");
+$('#recipes-pos-table tbody').removeClass("hidden");
 recipesPosTables.columns.adjust().draw();
 
 var recipesIncludesTables = $('#recipes-includes-table').DataTable({
@@ -102,7 +102,7 @@ var recipesIncludesTables = $('#recipes-includes-table').DataTable({
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#recipes-includes-table tbody').removeClass("d-none");
+$('#recipes-includes-table tbody').removeClass("hidden");
 recipesIncludesTables.columns.adjust().draw();
 
 Grocy.FrontendHelpers.ValidateForm('recipe-form');
@@ -338,10 +338,10 @@ $('#save-recipe-include-button').on('click', function(e)
 
 $("#recipe-picture").on("change", function(e)
 {
-	$("#recipe-picture-label").removeClass("d-none");
-	$("#recipe-picture-label-none").addClass("d-none");
-	$("#delete-current-recipe-picture-on-save-hint").addClass("d-none");
-	$("#current-recipe-picture").addClass("d-none");
+	$("#recipe-picture-label").removeClass("hidden");
+	$("#recipe-picture-label-none").addClass("hidden");
+	$("#delete-current-recipe-picture-on-save-hint").addClass("hidden");
+	$("#current-recipe-picture").addClass("hidden");
 	Grocy.DeleteRecipePictureOnSave = false;
 });
 
@@ -349,10 +349,10 @@ Grocy.DeleteRecipePictureOnSave = false;
 $("#delete-current-recipe-picture-button").on("click", function(e)
 {
 	Grocy.DeleteRecipePictureOnSave = true;
-	$("#current-recipe-picture").addClass("d-none");
-	$("#delete-current-recipe-picture-on-save-hint").removeClass("d-none");
-	$("#recipe-picture-label").addClass("d-none");
-	$("#recipe-picture-label-none").removeClass("d-none");
+	$("#current-recipe-picture").addClass("hidden");
+	$("#delete-current-recipe-picture-on-save-hint").removeClass("hidden");
+	$("#recipe-picture-label").addClass("hidden");
+	$("#recipe-picture-label-none").removeClass("hidden");
 });
 
 Grocy.Components.UserfieldsForm.Load();

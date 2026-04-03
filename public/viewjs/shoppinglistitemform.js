@@ -33,9 +33,9 @@ $('#save-shoppinglist-button').on('click', function(e)
 		Grocy.Api.Post('objects/product_barcodes', jsonDataBarcode,
 			function(result)
 			{
-				$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("d-none");
-				$('#barcode-lookup-disabled-hint').addClass('d-none');
-				$('#barcode-lookup-hint').removeClass('d-none');
+				$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("hidden");
+				$('#barcode-lookup-disabled-hint').addClass('hidden');
+				$('#barcode-lookup-hint').removeClass('hidden');
 			},
 			function(xhr)
 			{

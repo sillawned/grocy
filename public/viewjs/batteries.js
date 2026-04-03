@@ -6,7 +6,7 @@
 		{ "type": "num", "targets": 4 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#batteries-table tbody').removeClass("d-none");
+$('#batteries-table tbody').removeClass("hidden");
 batteriesTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

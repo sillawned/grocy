@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#mealplansections-table tbody').removeClass("d-none");
+$('#mealplansections-table tbody').removeClass("hidden");
 mealplanSectionsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

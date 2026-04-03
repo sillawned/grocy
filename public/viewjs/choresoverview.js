@@ -8,7 +8,7 @@
 		{ "type": "html", "targets": 3 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#chores-overview-table tbody').removeClass("d-none");
+$('#chores-overview-table tbody').removeClass("hidden");
 choresOverviewTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

@@ -98,17 +98,17 @@ $("#type").on("change", function(e)
 
 	if (value === "preset-list" || value === "preset-checklist")
 	{
-		$("#config").parent().removeClass("d-none");
+		$("#config").parent().removeClass("hidden");
 		$("#config-hint").text(__t("A predefined list of values, one per line"));
 	}
 	else
 	{
-		$("#config").parent().addClass("d-none");
+		$("#config").parent().addClass("hidden");
 		$("#config-hint").text("");
 	}
 
-	$("#default-value-group").addClass("d-none");
-	$("#default-value-group.userfield-type-" + value).removeClass("d-none");
+	$("#default-value-group").addClass("hidden");
+	$("#default-value-group.userfield-type-" + value).removeClass("hidden");
 });
 
 if (GetUriParam("entity"))
