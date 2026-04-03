@@ -9,7 +9,7 @@
 	<div class="col">
 		<h2 class="title">@yield('title')</h2>
 		<div class="float-right @if($embedded) pr-5 @endif">
-			<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#table-filter-row">
@@ -21,7 +21,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-2">
 		<div class="input-group">
@@ -91,7 +91,7 @@
 <div class="row mt-2">
 	<div class="col">
 		<table id="stock-journal-summary-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -106,7 +106,7 @@
 					<th>{{ $__t('Amount') }}</th>
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($entries as $journalEntry)
 				<tr>
 					<td class="fit-content border-right"></td>

@@ -17,13 +17,13 @@
 	<div class="col-12 col-md-6 col-xl-4 pb-3">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3 hide-when-embedded"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 order-md-3 hide-when-embedded"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
 				@if(!$embedded)
 				<button id="scan-mode-button"
@@ -32,7 +32,7 @@
 					title="{{ $__t('When enabled, after changing/scanning a product and if all fields could be automatically populated (by product and/or barcode defaults), the transaction is automatically submitted') }}">{{ $__t('Scan mode') }} <span id="scan-mode-status">@if(boolval($userSettings['scan_mode_consume_enabled'])) {{ $__t('on') }} @else {{ $__t('off') }} @endif</span></button>
 				<input id="scan-mode"
 					type="checkbox"
-					class="d-none user-setting-control"
+					class="hidden user-setting-control"
 					data-setting-key="scan_mode_consume_enabled"
 					@if(boolval($userSettings['scan_mode_consume_enabled']))
 					checked
@@ -58,7 +58,7 @@
 			))
 
 			<div id="consume-exact-amount-group"
-				class="form-group d-none">
+				class="form-group hidden">
 				<div class="custom-control custom-checkbox">
 					<input class="form-check-input custom-control-input"
 						type="checkbox"
@@ -74,10 +74,10 @@
 			@include('components.productamountpicker', array(
 			'value' => 1,
 			'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info"
-				class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
+				class="text-info italic hidden">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
 			))
 
-			<div class="form-group @if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) d-none @endif">
+			<div class="form-group @if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) hidden @endif">
 				<label for="location_id">{{ $__t('Location') }}</label>
 				<select required
 					class="custom-control custom-select location-combobox"

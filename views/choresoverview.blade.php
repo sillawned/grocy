@@ -252,7 +252,7 @@
 						@endif
 					</td>
 
-					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) d-none @endif">
+					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) hidden @endif">
 						<span id="chore-{{ $curentChoreEntry->chore_id }}-next-execution-assigned-user">
 							@if(!empty($curentChoreEntry->next_execution_assigned_to_user_id))
 							{{ FindObjectInArrayByPropertyValue($users, 'id', $curentChoreEntry->next_execution_assigned_to_user_id)->display_name }}
@@ -270,13 +270,13 @@
 						</span>
 					</td>
 					<td id="chore-{{ $curentChoreEntry->chore_id }}-due-filter-column"
-						class="d-none">
+						class="hidden">
 						{{ $curentChoreEntry->due_type }}
 						@if($curentChoreEntry->due_type == 'duetoday')
 						duesoon
 						@endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						@if(!empty($curentChoreEntry->next_execution_assigned_to_user_id))
 						xx{{ $curentChoreEntry->next_execution_assigned_to_user_id }}xx
 					</td>
@@ -303,7 +303,7 @@
 	tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content text-center">
-			<div class="modal-header d-block">
+			<div class="modal-header block">
 				<h4 class="modal-title">{{ $__t('Reschedule next execution') }}</h4>
 				<h5 id="reschedule-chore-modal-title"
 					class="text-muted"></h5>

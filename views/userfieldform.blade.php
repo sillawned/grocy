@@ -107,7 +107,7 @@
 				<div class="invalid-feedback">{{ $__t('A type is required') }}</div>
 			</div>
 
-			<div class="form-group d-none">
+			<div class="form-group hidden">
 				<label for="config">{{ $__t('Configuration') }} <span id="config-hint"
 						class="small text-muted"></span></label>
 				<textarea class="form-control"
@@ -117,7 +117,7 @@
 			</div>
 
 			<div id="default-value-group"
-				class="form-group d-none userfield-type-date userfield-type-datetime">
+				class="form-group hidden userfield-type-date userfield-type-datetime">
 				<label for="entity">{{ $__t('Default value') }}</label>
 				<select class="custom-control custom-select"
 					id="default_value"

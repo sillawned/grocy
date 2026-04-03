@@ -160,7 +160,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content text-center">
 			<div class="modal-header">
-				<h4 class="modal-title w-100">{{ $__t('Merge chores') }}</h4>
+				<h4 class="modal-title w-full">{{ $__t('Merge chores') }}</h4>
 			</div>
 			<div class="modal-body">
 				<form id="merge-chores-form"

@@ -70,7 +70,7 @@ $listItem->last_price_total = $listItem->price * $listItem->amount;
 					</select>
 				</div>
 				<div class="dropdown">
-					<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right dropdown-toggle"
+					<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right dropdown-toggle"
 						href="#"
 						data-toggle="dropdown">
 						{{ $__t('List actions') }}
@@ -212,10 +212,10 @@ $listItem->last_price_total = $listItem->price * $listItem->amount;
 					<th class="allow-grouping">{{ $__t('Product') }} / <em>{{ $__t('Note') }}</em></th>
 					<th>{{ $__t('Amount') }}</th>
 					<th class="allow-grouping">{{ $__t('Product group') }}</th>
-					<th class="d-none">Hidden status</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Last price (Unit)') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Last price (Total)') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif allow-grouping">{{ $__t('Default store') }}</th>
+					<th class="hidden">Hidden status</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Last price (Unit)') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Last price (Total)') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif allow-grouping">{{ $__t('Default store') }}</th>
 					<th>{{ $__t('Barcodes') }}</th>
 
 					@include('components.userfields_thead', array(

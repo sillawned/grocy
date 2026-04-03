@@ -8,22 +8,22 @@
 <div class="title-related-links">
 	<h2 class="title">@yield('title')</h2>
 	<div class="float-right @if($embedded) pr-5 @endif">
-		<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+		<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 			type="button"
 			data-toggle="collapse"
 			data-target="#table-filter-row">
 			<i class="fa-solid fa-filter"></i>
 		</button>
-		<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3 hide-when-embedded"
+		<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3 hide-when-embedded"
 			type="button"
 			data-toggle="collapse"
 			data-target="#related-links">
 			<i class="fa-solid fa-ellipsis-v"></i>
 		</button>
 	</div>
-	<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+	<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 		id="related-links">
-		<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right hide-when-embedded"
+		<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right hide-when-embedded"
 			href="{{ $U('/stockjournal/summary') }}">
 			{{ $__t('Journal summary') }}
 		</a>
@@ -32,7 +32,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-2">
 		<div class="input-group">
@@ -134,7 +134,7 @@
 <div class="row mt-2">
 	<div class="col">
 		<table id="stock-journal-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -147,7 +147,7 @@
 					<th>{{ $__t('Amount') }}</th>
 					<th>{{ $__t('Transaction time') }}</th>
 					<th class="allow-grouping">{{ $__t('Transaction type') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) d-none @endif allow-grouping">{{ $__t('Location') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) hidden @endif allow-grouping">{{ $__t('Location') }}</th>
 					<th class="allow-grouping">{{ $__t('Done by') }}</th>
 					<th>{{ $__t('Note') }}</th>
 
@@ -156,7 +156,7 @@
 					))
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($stockLog as $stockLogEntry)
 				<tr id="stock-booking-{{ $stockLogEntry->id }}-row"
 					class="@if($stockLogEntry->undone == 1) text-muted @endif stock-booking-correlation-{{ $stockLogEntry->correlation_id }}"
@@ -170,7 +170,7 @@
 							title="{{ $__t('Undo transaction') }}">
 							<i class="fa-solid fa-undo"></i>
 						</a>
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-xs btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">
@@ -278,10 +278,10 @@
 					<td>
 						{{ $__t($stockLogEntry->transaction_type) }}
 						@if ($stockLogEntry->spoiled == 1)
-						<span class="font-italic text-muted">{{ $__t('Spoiled') }}</span>
+						<span class="italic text-muted">{{ $__t('Spoiled') }}</span>
 						@endif
 					</td>
-					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) d-none @endif">
+					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING) hidden @endif">
 						{{ $stockLogEntry->location_name }}
 					</td>
 					<td>

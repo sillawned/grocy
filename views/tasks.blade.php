@@ -9,13 +9,13 @@
 	<div class="col">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100 m-1 mt-md-0 mb-md-0 float-right"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100 m-1 md:mt-0 md:mb-0 float-right"
 				id="related-links">
 				<a class="btn btn-primary responsive-button show-as-dialog-link"
 					href="{{ $U('/task/new?embedded') }}">
@@ -33,9 +33,9 @@
 			<div id="info-due-soon-tasks"
 				data-status-filter="duesoon"
 				data-next-x-days="{{ $nextXDays }}"
-				class="warning-message status-filter-message responsive-button @if($nextXDays == 0) d-none @endif"></div>
+				class="warning-message status-filter-message responsive-button @if($nextXDays == 0) hidden @endif"></div>
 			<div class="float-right mt-1 @if($embedded) pr-5 @endif">
-				<a class="btn btn-sm btn-outline-info d-md-none"
+				<a class="btn btn-sm btn-outline-info md:hidden"
 					data-toggle="collapse"
 					href="#table-filter-row"
 					role="button">
@@ -52,7 +52,7 @@
 	</div>
 </div>
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -92,7 +92,7 @@
 				@foreach($taskCategories as $taskCategory)
 				<option value="{{ $taskCategory->name }}">{{ $taskCategory->name }}</option>
 				@endforeach
-				<option class="font-italic font-weight-light"
+				<option class="italic font-weight-light"
 					value="{{ $__t('Uncategorized') }}">{{ $__t('Uncategorized') }}</option>
 			</select>
 		</div>
@@ -113,7 +113,7 @@
 <div class="row">
 	<div class="col">
 		<table id="tasks-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -127,8 +127,8 @@
 					<th class="allow-grouping"
 						data-shadow-rowgroup-column="6">{{ $__t('Category') }}</th>
 					<th class="allow-grouping">{{ $__t('Assigned to') }}</th>
-					<th class="d-none">Hidden status</th>
-					<th class="d-none">Hidden category_id</th>
+					<th class="hidden">Hidden status</th>
+					<th class="hidden">Hidden category_id</th>
 
 					@include('components.userfields_thead', array(
 					'userfields' => $userfields
@@ -136,7 +136,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($tasks as $task)
 				<tr id="task-{{ $task->id }}-row"
 					class="@if($task->due_type == 'overdue') table-danger @elseif($task->due_type == 'duetoday') table-info @elseif($task->due_type == 'duesoon') table-warning @endif">
@@ -187,18 +187,18 @@
 							datetime="{{ $task->due_date }}"></time>
 					</td>
 					<td>
-						@if($task->category_id != null) <span>{{ FindObjectInArrayByPropertyValue($taskCategories, 'id', $task->category_id)->name }}</span> @else <span class="font-italic font-weight-light">{{ $__t('Uncategorized') }}</span>@endif
+						@if($task->category_id != null) <span>{{ FindObjectInArrayByPropertyValue($taskCategories, 'id', $task->category_id)->name }}</span> @else <span class="italic font-weight-light">{{ $__t('Uncategorized') }}</span>@endif
 					</td>
 					<td>
 						@if($task->assigned_to_user_id != null) <span>{{ GetUserDisplayName(FindObjectInArrayByPropertyValue($users, 'id', $task->assigned_to_user_id)) }}</span> @endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						{{ $task->due_type }}
 						@if($task->due_type == 'duetoday')
 						duesoon
 						@endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						@if($task->category_id != null) {{ FindObjectInArrayByPropertyValue($taskCategories, 'id', $task->category_id)->name }} @else {{ $__t('Uncategorized') }} @endif
 					</td>
 					@include('components.userfields_tbody',

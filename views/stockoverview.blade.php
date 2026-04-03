@@ -15,29 +15,29 @@
 			<h2 class="title mr-2 order-0">
 				@yield('title')
 			</h2>
-			<h2 class="mb-0 mr-auto order-3 order-md-1 width-xs-sm-100">
+			<h2 class="mb-0 mr-auto order-3 md:order-1 width-xs-sm-100">
 				<span id="info-current-stock"
 					class="text-muted small"></span>
 			</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
-				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right"
+				<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right"
 					href="{{ $U('/stockjournal') }}">
 					{{ $__t('Journal') }}
 				</a>
-				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right"
+				<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right"
 					href="{{ $U('/stockentries') }}">
 					{{ $__t('Stock entries') }}
 				</a>
 				@if(GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING || GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 				<div class="dropdown">
-					<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right dropdown-toggle"
+					<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right dropdown-toggle"
 						href="#"
 						data-toggle="dropdown">
 						{{ $__t('Reports') }}
@@ -73,7 +73,7 @@
 				data-status-filter="belowminstockamount"
 				class="normal-message status-filter-message responsive-button"></div>
 			<div class="float-right mt-1 @if($embedded) pr-5 @endif">
-				<a class="btn btn-sm btn-outline-info d-md-none"
+				<a class="btn btn-sm btn-outline-info md:hidden"
 					data-toggle="collapse"
 					href="#table-filter-row"
 					role="button">
@@ -89,7 +89,7 @@
 		</div>
 	</div>
 </div>
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -156,7 +156,7 @@
 <div class="row">
 	<div class="col">
 		<table id="stock-overview-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -168,22 +168,22 @@
 					<th>{{ $__t('Product') }}</th>
 					<th class="allow-grouping">{{ $__t('Product group') }}</th>
 					<th>{{ $__t('Amount') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Value') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING) d-none @endif allow-grouping">{{ $__t('Next due date') }}</th>
-					<th class="d-none">Hidden location</th>
-					<th class="d-none">Hidden status</th>
-					<th class="d-none">Hidden product group</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Value') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING) hidden @endif allow-grouping">{{ $__t('Next due date') }}</th>
+					<th class="hidden">Hidden location</th>
+					<th class="hidden">Hidden status</th>
+					<th class="hidden">Hidden product group</th>
 					<th>{{ $__t('Calories') }} ({{ $__t('Per stock quantity unit') }})</th>
 					<th>{{ $__t('Calories') }}</th>
 					<th class="allow-grouping">{{ $__t('Last purchased') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Last price') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Last price') }}</th>
 					<th class="allow-grouping">{{ $__t('Min. stock amount') }}</th>
 					<th>{{ $__t('Product description') }}</th>
 					<th class="allow-grouping">{{ $__t('Parent product') }}</th>
 					<th class="allow-grouping">{{ $__t('Default location') }}</th>
 					<th>{{ $__t('Product picture') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Average price') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif allow-grouping">{{ $__t('Default store') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Average price') }}</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif allow-grouping">{{ $__t('Default store') }}</th>
 
 					@include('components.userfields_thead', array(
 					'userfields' => $userfields
@@ -191,7 +191,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($currentStock as $currentStockEntry)
 				<tr id="product-{{ $currentStockEntry->product_id }}-row"
 					class="@if(GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING && $currentStockEntry->best_before_date < date('Y-m-d 23:59:59', strtotime('-1 days')) && $currentStockEntry->amount > 0) @if($currentStockEntry->due_type == 1) table-secondary @else table-danger @endif @elseif(GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING && $currentStockEntry->best_before_date < date('Y-m-d 23:59:59', strtotime('+' . $nextXDays . ' days')) && $currentStockEntry->amount > 0) table-warning @elseif ($currentStockEntry->product_missing) table-info @endif">
@@ -233,7 +233,7 @@
 							<i class="fa-solid fa-box-open"></i> <span class="locale-number locale-number-quantity-amount">{{ $currentStockEntry->quick_open_amount_qu_consume }}</span>
 						</a>
 						@endif
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-sm btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">
@@ -329,18 +329,18 @@
 					<td class="productcard-trigger cursor-link"
 						data-product-id="{{ $currentStockEntry->product_id }}">
 						{{ $currentStockEntry->product_name }}
-						<span class="d-none">{{ $currentStockEntry->product_barcodes }}</span>
+						<span class="hidden">{{ $currentStockEntry->product_barcodes }}</span>
 					</td>
 					<td>
 						@if($currentStockEntry->product_group_name !== null){{ $currentStockEntry->product_group_name }}@endif
 					</td>
 					<td>
-						<span class="custom-sort d-none">@if($currentStockEntry->product_no_own_stock == 1){{ $currentStockEntry->amount_aggregated }}@else{{ $currentStockEntry->amount }}@endif</span>
-						<span class="@if($currentStockEntry->product_no_own_stock == 1) d-none @endif">
+						<span class="custom-sort hidden">@if($currentStockEntry->product_no_own_stock == 1){{ $currentStockEntry->amount_aggregated }}@else{{ $currentStockEntry->amount }}@endif</span>
+						<span class="@if($currentStockEntry->product_no_own_stock == 1) hidden @endif">
 							<span id="product-{{ $currentStockEntry->product_id }}-amount"
 								class="locale-number locale-number-quantity-amount">{{ $currentStockEntry->amount }}</span> <span id="product-{{ $currentStockEntry->product_id }}-qu-name">{{ $__n($currentStockEntry->amount, $currentStockEntry->qu_stock_name, $currentStockEntry->qu_stock_name_plural) }}</span>
 							<span id="product-{{ $currentStockEntry->product_id }}-opened-amount"
-								class="small font-italic">@if($currentStockEntry->amount_opened > 0){{ $__t('%s opened', $currentStockEntry->amount_opened) }}@endif</span>
+								class="small italic">@if($currentStockEntry->amount_opened > 0){{ $__t('%s opened', $currentStockEntry->amount_opened) }}@endif</span>
 						</span>
 						@if($currentStockEntry->is_aggregated_amount == 1)
 						<span class="@if($currentStockEntry->product_no_own_stock == 0) pl-1 @endif text-secondary">
@@ -348,7 +348,7 @@
 								class="locale-number locale-number-quantity-amount">{{ $currentStockEntry->amount_aggregated }}</span> {{ $__n($currentStockEntry->amount_aggregated, $currentStockEntry->qu_stock_name, $currentStockEntry->qu_stock_name_plural, true) }}
 							@if($currentStockEntry->amount_opened_aggregated > 0)
 							<span id="product-{{ $currentStockEntry->product_id }}-opened-amount-aggregated"
-								class="small font-italic">
+								class="small italic">
 								{!! $__t('%s opened', '<span class="locale-number locale-number-quantity-amount">' . $currentStockEntry->amount_opened_aggregated . '</span>') !!}
 							</span>
 							@endif
@@ -365,22 +365,22 @@
 						@endif
 					</td>
 					<td>
-						<span class="custom-sort d-none">{{$currentStockEntry->value}}</span>
+						<span class="custom-sort hidden">{{$currentStockEntry->value}}</span>
 						<span id="product-{{ $currentStockEntry->product_id }}-value"
 							class="locale-number locale-number-currency">{{ $currentStockEntry->value }}</span>
 					</td>
-					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING) d-none @endif">
+					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING) hidden @endif">
 						<span id="product-{{ $currentStockEntry->product_id }}-next-due-date">{{ $currentStockEntry->best_before_date }}</span>
 						<time id="product-{{ $currentStockEntry->product_id }}-next-due-date-timeago"
 							class="timeago timeago-contextual"
 							@if(!empty($currentStockEntry->best_before_date)) datetime="{{ $currentStockEntry->best_before_date }} 23:59:59" @endif></time>
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						@foreach(FindAllObjectsInArrayByPropertyValue($currentStockLocations, 'product_id', $currentStockEntry->product_id) as $locationsForProduct)
 						xx{{ FindObjectInArrayByPropertyValue($locations, 'id', $locationsForProduct->location_id)->name }}xx
 						@endforeach
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						@if($currentStockEntry->best_before_date < date('Y-m-d
 							23:59:59',
 							strtotime('-'
@@ -400,7 +400,7 @@
 								@if($currentStockEntry->amount_aggregated > 0) instockX @endif
 								@if ($currentStockEntry->product_missing) belowminstockamount @endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						xx{{ $currentStockEntry->product_group_name }}xx
 					</td>
 					<td>
@@ -414,8 +414,8 @@
 						<time class="timeago timeago-contextual"
 							datetime="{{ $currentStockEntry->last_purchased }}"></time>
 					</td>
-					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">
-						<span class="custom-sort d-none">{{$currentStockEntry->last_price}}</span>
+					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">
+						<span class="custom-sort hidden">{{$currentStockEntry->last_price}}</span>
 						@if(!empty($currentStockEntry->last_price))
 						<span data-toggle="tooltip"
 							data-trigger="hover click"
@@ -444,8 +444,8 @@
 							loading="lazy">
 						@endif
 					</td>
-					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">
-						<span class="custom-sort d-none">{{$currentStockEntry->average_price}}</span>
+					<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">
+						<span class="custom-sort hidden">{{$currentStockEntry->average_price}}</span>
 						@if(!empty($currentStockEntry->average_price))
 						<span data-toggle="tooltip"
 							data-trigger="hover click"
