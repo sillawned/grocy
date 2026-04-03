@@ -31,7 +31,7 @@
 					id="password"
 					name="password">
 				<div id="login-error"
-					class="form-text text-danger d-none"></div>
+					class="form-text text-danger hidden"></div>
 			</div>
 
 			<div class="form-group mt-n2">

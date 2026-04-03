@@ -17,22 +17,22 @@
 	<div class="col-12 col-md-6 col-xl-4 pb-3">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3 hide-when-embedded"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3 hide-when-embedded"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
 				@if(!$embedded)
 				<button id="scan-mode-button"
-					class="btn @if(boolval($userSettings['scan_mode_purchase_enabled'])) btn-success @else btn-danger @endif m-1 mt-md-0 mb-md-0 float-right"
+					class="btn @if(boolval($userSettings['scan_mode_purchase_enabled'])) btn-success @else btn-danger @endif m-1 md:mt-0 md:mb-0 float-right"
 					data-toggle="tooltip"
 					title="{{ $__t('When enabled, after changing/scanning a product and if all fields could be automatically populated (by product and/or barcode defaults), the transaction is automatically submitted') }}">{{ $__t('Scan mode') }} <span id="scan-mode-status">@if(boolval($userSettings['scan_mode_purchase_enabled'])) {{ $__t('on') }} @else {{ $__t('off') }} @endif</span></button>
 				<input id="scan-mode"
 					type="checkbox"
-					class="d-none user-setting-control"
+					class="hidden user-setting-control"
 					data-setting-key="scan_mode_purchase_enabled"
 					@if(boolval($userSettings['scan_mode_purchase_enabled']))
 					checked
@@ -59,7 +59,7 @@
 			@include('components.productamountpicker', array(
 			'value' => 1,
 			'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info"
-				class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
+				class="text-info italic hidden">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
 			))
 
 			@if(boolval($userSettings['show_purchased_date_on_purchase']))
@@ -179,7 +179,7 @@
 			))
 
 			<button id="save-purchase-button"
-				class="btn btn-success d-block">{{ $__t('OK') }}</button>
+				class="btn btn-success block">{{ $__t('OK') }}</button>
 
 		</form>
 	</div>

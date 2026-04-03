@@ -309,7 +309,7 @@
 		</form>
 	</div>
 
-	<div class="col-lg-6 col-12 @if($mode == 'create') d-none @endif">
+	<div class="col-lg-6 col-12 @if($mode == 'create') hidden @endif">
 		<div class="row">
 			<div class="col clearfix">
 				<div class="title-related-links pb-4">

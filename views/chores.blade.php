@@ -10,20 +10,20 @@
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
 			<div class="float-right @if($embedded) pr-5 @endif">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 order-md-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#table-filter-row">
 					<i class="fa-solid fa-filter"></i>
 				</button>
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 order-md-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
 				<a class="btn btn-primary responsive-button m-1 mt-md-0 mb-md-0 float-right"
 					href="{{ $U('/chore/new') }}">
@@ -40,7 +40,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -79,7 +79,7 @@
 <div class="row">
 	<div class="col">
 		<table id="chores-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -98,7 +98,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($chores as $chore)
 				<tr class="@if($chore->active == 0) text-muted @endif">
 					<td class="fit-content border-right">
@@ -116,7 +116,7 @@
 							title="{{ $__t('Delete this item') }}">
 							<i class="fa-solid fa-trash"></i>
 						</a>
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-sm btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">

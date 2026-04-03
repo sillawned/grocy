@@ -15,21 +15,21 @@
 			<h2 class="title">@yield('title')</h2>
 			@if($mode == 'edit')
 			<div class="float-right">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
-				<a class="btn btn-outline-secondary m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+				<a class="btn btn-outline-secondary m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 					href="{{ $U('/stockentries?embedded&product=') }}{{ $product->id }}"
 					data-dialog-type="table">
 					{{ $__t('Stock entries') }}
 				</a>
-				<a class="btn btn-outline-secondary m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+				<a class="btn btn-outline-secondary m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 					href="{{ $U('/stockjournal?embedded&product=') }}{{ $product->id }}"
 					data-dialog-type="table">
 					{{ $__t('Stock journal') }}
@@ -233,7 +233,7 @@
 
 			@if(GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING)
 			<div class="form-group">
-				<label class="d-block my-0"
+				<label class="block my-0"
 					for="location_id">{{ $__t('Due date type') }}
 					<i class="fa-solid fa-question-circle text-muted"
 						data-toggle="tooltip"
@@ -576,7 +576,7 @@
 
 			@if(GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 			<div class="form-group">
-				<label class="d-block my-0"
+				<label class="block my-0"
 					for="default_purchase_price_type">{{ $__t('Default purchase price type') }}
 					<i class="fa-solid fa-question-circle text-muted"
 						data-toggle="tooltip"
@@ -674,7 +674,7 @@
 			<div class="py-5"></div>
 			<div class="sticky-form-footer pt-1">
 				<small id="save-hint"
-					class="my-1 form-text text-muted @if($mode == 'edit') d-none @endif">{{ $__t('Save & continue to add quantity unit conversions & barcodes') }}</small>
+					class="my-1 form-text text-muted @if($mode == 'edit') hidden @endif">{{ $__t('Save & continue to add quantity unit conversions & barcodes') }}</small>
 
 				<button id="save-product-button"
 					class="save-product-button btn btn-success mb-2 default-submit-button"
@@ -688,22 +688,22 @@
 
 	<div class="col-lg-6 col-12">
 
-		<div class="row @if($mode == 'create' || !GROCY_FEATURE_FLAG_STOCK) d-none @endif">
+		<div class="row @if($mode == 'create' || !GROCY_FEATURE_FLAG_STOCK) hidden @endif">
 			<div class="col">
 				<div class="title-related-links">
 					<h4>
 						{{ $__t('Barcodes') }}
 					</h4>
-					<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+					<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 						type="button"
 						data-toggle="collapse"
 						data-target="#related-links">
 						<i class="fa-solid fa-ellipsis-v"></i>
 					</button>
 					@if($mode == "edit")
-					<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+					<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 						id="related-links">
-						<a class="btn btn-primary btn-sm m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+						<a class="btn btn-primary btn-sm m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 							href="{{ $U('/productbarcodes/new?embedded&product=' . $product->id ) }}">
 							{{ $__t('Add') }}
 						</a>
@@ -712,10 +712,10 @@
 				</div>
 
 				<h5 id="barcode-headline-info"
-					class="text-muted font-italic"></h5>
+					class="text-muted italic"></h5>
 
 				<table id="barcode-table"
-					class="table table-sm table-striped nowrap w-100">
+					class="table table-sm table-striped nowrap w-full">
 					<thead>
 						<tr>
 							<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -725,10 +725,10 @@
 									href="#"><i class="fa-solid fa-eye"></i></a>
 							</th>
 							<th>{{ $__t('Barcode') }}</th>
-							<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif allow-grouping">{{ $__t('Store') }}</th>
+							<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif allow-grouping">{{ $__t('Store') }}</th>
 							<th class="allow-grouping">{{ $__t('Quantity unit') }}</th>
 							<th>{{ $__t('Amount') }}</th>
-							<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">{{ $__t('Last price') }}</th>
+							<th class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">{{ $__t('Last price') }}</th>
 							<th>{{ $__t('Note') }}</th>
 
 							@include('components.userfields_thead', array(
@@ -736,7 +736,7 @@
 							))
 						</tr>
 					</thead>
-					<tbody class="d-none">
+					<tbody class="hidden">
 						@if($mode == "edit")
 						@foreach($barcodes as $barcode)
 						@if($barcode->product_id == $product->id || $barcode->product_id == null)
@@ -758,7 +758,7 @@
 							<td>
 								{{ $barcode->barcode }}
 							</td>
-							<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif"
+							<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif"
 								id="barcode-shopping-location">
 								@if (FindObjectInArrayByPropertyValue($shoppinglocations, 'id', $barcode->shopping_location_id) !== null)
 								{{ FindObjectInArrayByPropertyValue($shoppinglocations, 'id', $barcode->shopping_location_id)->name }}
@@ -774,7 +774,7 @@
 								<span class="locale-number locale-number-quantity-amount">{{ $barcode->amount }}</span>
 								@endif
 							</td>
-							<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) d-none @endif">
+							<td class="@if(!GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING) hidden @endif">
 								<span class="locale-number locale-number-currency">{{ $barcode->last_price }}</span>
 							</td>
 							<td>
@@ -794,7 +794,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-2 @if($mode == 'create') d-none @endif">
+		<div class="row mt-2 @if($mode == 'create') hidden @endif">
 			<div class="col clearfix">
 				<div class="title-related-links">
 					<h4>
@@ -826,27 +826,27 @@
 			</div>
 		</div>
 
-		<div class="row @if(GROCY_FEATURE_FLAG_STOCK) mt-5 @endif @if($mode == 'create') d-none @endif">
+		<div class="row @if(GROCY_FEATURE_FLAG_STOCK) mt-5 @endif @if($mode == 'create') hidden @endif">
 			<div class="col">
 				<div class="title-related-links">
 					<h4>
 						{{ $__t('Product specific QU conversions') }}
 					</h4>
-					<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+					<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 						type="button"
 						data-toggle="collapse"
 						data-target="#related-links">
 						<i class="fa-solid fa-ellipsis-v"></i>
 					</button>
 					@if($mode == "edit")
-					<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+					<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 						id="related-links">
-						<a class="btn btn-primary btn-sm m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+						<a class="btn btn-primary btn-sm m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 							href="{{ $U('/quantityunitconversion/new?embedded&product=' . $product->id ) }}"
 							data-dialog-type="wider">
 							{{ $__t('Add') }}
 						</a>
-						<a class="btn btn-outline-primary btn-sm m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+						<a class="btn btn-outline-primary btn-sm m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 							href="{{ $U('/quantityunitconversionsresolved?embedded&product=' . $product->id ) }}"
 							data-dialog-type="wider"
 							data-toggle="tooltip"
@@ -858,7 +858,7 @@
 				</div>
 
 				<table id="qu-conversions-table-products"
-					class="table table-sm table-striped nowrap w-100">
+					class="table table-sm table-striped nowrap w-full">
 					<thead>
 						<tr>
 							<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -873,7 +873,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody class="d-none">
+					<tbody class="hidden">
 						@if($mode == "edit")
 						@foreach($quConversions as $quConversion)
 						<tr>
@@ -898,7 +898,7 @@
 							<td>
 								<span class="locale-number locale-number-quantity-amount">{{ $quConversion->factor }}</span>
 							</td>
-							<td class="font-italic">
+							<td class="italic">
 								{!! $__t('This means 1 %1$s is the same as %2$s %3$s', FindObjectInArrayByPropertyValue($quantityunitsAll, 'id', $quConversion->from_qu_id)->name, '<span class="locale-number locale-number-quantity-amount">' . $quConversion->factor . '</span>', $__n($quConversion->factor, FindObjectInArrayByPropertyValue($quantityunitsAll, 'id', $quConversion->to_qu_id)->name, FindObjectInArrayByPropertyValue($quantityunitsAll, 'id', $quConversion->to_qu_id)->name_plural, true)) !!}
 							</td>
 						</tr>
@@ -923,12 +923,12 @@
 									id="product-picture"
 									accept="image/*">
 								<label id="product-picture-label"
-									class="custom-file-label @if(empty($product->picture_file_name)) d-none @endif"
+									class="custom-file-label @if(empty($product->picture_file_name)) hidden @endif"
 									for="product-picture">
 									{{ $product->picture_file_name }}
 								</label>
 								<label id="product-picture-label-none"
-									class="custom-file-label @if(!empty($product->picture_file_name)) d-none @endif"
+									class="custom-file-label @if(!empty($product->picture_file_name)) hidden @endif"
 									for="product-picture">
 									{{ $__t('No file selected') }}
 								</label>
@@ -946,10 +946,10 @@
 					class="img-fluid img-thumbnail mt-2 mb-5"
 					loading="lazy">
 				<p id="delete-current-product-picture-on-save-hint"
-					class="form-text text-muted font-italic d-none pb-5">{{ $__t('The current picture will be deleted on save') }}</p>
+					class="form-text text-muted italic hidden pb-5">{{ $__t('The current picture will be deleted on save') }}</p>
 				@else
 				<p id="no-current-product-picture-hint"
-					class="form-text text-muted font-italic pb-5">{{ $__t('No picture available') }}</p>
+					class="form-text text-muted italic pb-5">{{ $__t('No picture available') }}</p>
 				@endif
 			</div>
 		</div>

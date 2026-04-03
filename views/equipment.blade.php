@@ -10,29 +10,29 @@
 		<div class="title-related-links border-bottom mb-2 py-1">
 			<h2 class="title">@yield('title')</h2>
 			<div class="float-right @if($embedded) pr-5 @endif">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#table-filter-row">
 					<i class="fa-solid fa-filter"></i>
 				</button>
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
-				<a class="btn btn-primary responsive-button m-1 mt-md-0 mb-md-0 float-right"
+				<a class="btn btn-primary responsive-button m-1 md:mt-0 md:mb-0 float-right"
 					href="{{ $U('/equipment/new') }}">
 					{{ $__t('Add') }}
 				</a>
 			</div>
 		</div>
 
-		<div class="row collapse d-md-flex"
+		<div class="row collapse md:flex"
 			id="table-filter-row">
 			<div class="col">
 				<div class="input-group">
@@ -58,7 +58,7 @@
 		</div>
 
 		<table id="equipment-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -76,7 +76,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($equipment as $equipmentItem)
 				<tr data-equipment-id="{{ $equipmentItem->id }}">
 					<td class="fit-content border-right">
@@ -86,7 +86,7 @@
 							title="{{ $__t('Edit this item') }}">
 							<i class="fa-solid fa-edit"></i>
 						</a>
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-sm btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">
@@ -164,7 +164,7 @@
 					</div>
 					<div class="card-body py-0 px-0">
 						<p id="selected-equipment-has-no-instruction-manual-hint"
-							class="text-muted font-italic d-none pt-3 pl-3">{{ $__t('The selected equipment has no instruction manual') }}</p>
+							class="text-muted italic hidden pt-3 pl-3">{{ $__t('The selected equipment has no instruction manual') }}</p>
 						<embed id="selected-equipment-instruction-manual"
 							class="embed-responsive embed-responsive-4by3"
 							src=""
@@ -196,7 +196,7 @@
 					</div>
 					<div class="card-body py-0 px-0">
 						<p id="file-userfield-{{$userfield->name}}-empty-hint"
-							class="text-muted font-italic d-none pt-3 pl-3"></p>
+							class="text-muted italic hidden pt-3 pl-3"></p>
 						<embed id="file-userfield-{{$userfield->name}}-embed"
 							class="embed-responsive embed-responsive-4by3"
 							src=""

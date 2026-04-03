@@ -112,9 +112,9 @@
 			'decimals' => $userSettings['stock_decimal_places_amounts'],
 			'value' => $value,
 			'additionalHtmlElements' => '<p id="qu-conversion-info"
-				class="form-text text-info d-none mb-0"></p>
+				class="form-text text-info hidden mb-0"></p>
 			<p id="qu-conversion-inverse-info"
-				class="form-text text-info d-none"></p>',
+				class="form-text text-info hidden"></p>',
 			'additionalCssClasses' => 'input-group-qu locale-number-input locale-number-quantity-amount'
 			))
 

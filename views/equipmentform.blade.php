@@ -82,12 +82,12 @@
 									id="instruction-manual"
 									accept="application/pdf">
 								<label id="instruction-manual-label"
-									class="custom-file-label @if(empty($equipment->instruction_manual_file_name)) d-none @endif"
+									class="custom-file-label @if(empty($equipment->instruction_manual_file_name)) hidden @endif"
 									for="instruction-manual">
 									{{ $equipment->instruction_manual_file_name }}
 								</label>
 								<label id="instruction-manual-label-none"
-									class="custom-file-label @if(!empty($equipment->instruction_manual_file_name)) d-none @endif"
+									class="custom-file-label @if(!empty($equipment->instruction_manual_file_name)) hidden @endif"
 									for="instruction-manual">
 									{{ $__t('No file selected') }}
 								</label>
@@ -105,7 +105,7 @@
 					src="{{ $U('/api/files/equipmentmanuals/' . base64_encode($equipment->instruction_manual_file_name)) }}"
 					type="application/pdf">
 				<p id="delete-current-instruction-manual-on-save-hint"
-					class="form-text text-muted font-italic d-none">{{ $__t('The current file will be deleted on save') }}</p>
+					class="form-text text-muted italic hidden">{{ $__t('The current file will be deleted on save') }}</p>
 				@endif
 			</div>
 		</div>

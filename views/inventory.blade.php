@@ -28,9 +28,9 @@
 			'value' => 1,
 			'label' => 'New stock amount',
 			'additionalHtmlElements' => '<div id="inventory-change-info"
-				class="form-text text-muted d-none ml-3 my-0 w-100"></div>',
+				class="form-text text-muted hidden ml-3 my-0 w-full"></div>',
 			'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info"
-				class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
+				class="text-info italic hidden">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
 			))
 
 			@if(boolval($userSettings['show_purchased_date_on_purchase']))
@@ -53,7 +53,7 @@
 			$additionalGroupCssClasses = '';
 			if (!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING)
 			{
-			$additionalGroupCssClasses = 'd-none';
+			$additionalGroupCssClasses = 'hidden';
 			}
 			@endphp
 			@include('components.datetimepicker', array(

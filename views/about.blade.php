@@ -81,8 +81,8 @@
 						<a class="discrete-link"
 							data-toggle="collapse-next"
 							href="#">
-							Version <span class="font-weight-bold">{{ $changelogItem['version'] }}</span><br>
-							Released on <span class="font-weight-bold">{{ $changelogItem['release_date'] }}</span>
+							Version <span class="font-bold">{{ $changelogItem['version'] }}</span><br>
+							Released on <span class="font-bold">{{ $changelogItem['release_date'] }}</span>
 							<time class="timeago timeago-contextual text-muted"
 								datetime="{{ $changelogItem['release_date'] }}"></time>
 						</a>

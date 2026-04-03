@@ -9,13 +9,13 @@
 	<div class="col">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 order-md-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100 d-print-none"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100 print:hidden"
 				id="related-links">
 				<a id="ical-button"
 					class="btn btn-outline-dark m-1 mt-md-0 mb-md-0 float-right"
@@ -50,7 +50,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title w-100">{{ $__t('Configure colors') }}</h4>
+				<h4 class="modal-title w-full">{{ $__t('Configure colors') }}</h4>
 			</div>
 			<div class="modal-body">
 				@if(GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING)

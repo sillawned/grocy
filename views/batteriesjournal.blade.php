@@ -9,7 +9,7 @@
 	<div class="col">
 		<h2 class="title">@yield('title')</h2>
 		<div class="float-right @if($embedded) pr-5 @endif">
-			<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 order-1 order-md-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#table-filter-row">
@@ -21,7 +21,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -79,7 +79,7 @@
 <div class="row mt-2">
 	<div class="col">
 		<table id="batteries-journal-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -96,7 +96,7 @@
 					))
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($chargeCycles as $chargeCycleEntry)
 				<tr id="charge-cycle-{{ $chargeCycleEntry->id }}-row"
 					class="@if($chargeCycleEntry->undone == 1) text-muted @endif">

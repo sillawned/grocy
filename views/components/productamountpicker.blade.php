@@ -53,7 +53,7 @@ $minLocal = 0;
 			</div>
 
 			<div id="qu-conversion-info"
-				class="ml-3 my-0 form-text text-info d-none w-100"></div>
+				class="ml-3 my-0 form-text text-info hidden w-full"></div>
 
 			{!! $additionalHtmlElements !!}
 
