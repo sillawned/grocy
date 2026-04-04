@@ -1,4 +1,6 @@
-﻿$('.save-choretracking-button').on('click', function(e)
+var tsChore = null;
+
+$('.save-choretracking-button').on('click', function(e)
 {
 	e.preventDefault();
 
@@ -7,7 +9,7 @@
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -30,12 +32,11 @@
 						toastr.success(__t('Tracked execution of chore %1$s on %2$s', choreDetails.chore.name, Grocy.Components.DateTimePicker.GetValue()) + '<br><a class="btn btn-secondary btn-sm mt-2" href="#" onclick="UndoChoreExecution(' + result.id + ')"><i class="fa-solid fa-undo"></i> ' + __t("Undo") + '</a>');
 						Grocy.Components.ChoreCard.Refresh($('#chore_id').val());
 
-						$('#chore_id').val('');
-						$('#chore_id_text_input').focus();
-						$('#chore_id_text_input').val('');
+						tsChore.clear(true);
 						Grocy.Components.DateTimePicker.SetValue(moment().format('YYYY-MM-DD HH:mm:ss'));
-						$('#chore_id_text_input').trigger('change');
+						$('#chore_id').trigger('change');
 						Grocy.FrontendHelpers.ValidateForm('choretracking-form');
+						$(tsChore.control_input).focus();
 					});
 				},
 				function(xhr)
@@ -55,10 +56,6 @@
 
 $('#chore_id').on('change', function(e)
 {
-	var input = $('#chore_id_text_input').val().toString();
-	$('#chore_id_text_input').val(input);
-	$('#chore_id').data('combobox').refresh();
-
 	var choreId = $(e.target).val();
 	if (choreId)
 	{
@@ -105,18 +102,49 @@ $('#chore_id').on('change', function(e)
 	}
 });
 
-$('.combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4',
-	clearIfNoMatch: false
+tsChore = new TomSelect('#chore_id', {
+	allowEmptyOption: true,
+	create: false,
+	onBlur: function()
+	{
+		if (tsChore.isOpen)
+		{
+			return;
+		}
+
+		var input = tsChore.control_input.value.toString();
+		var possibleOptionElement = [];
+
+		// Grocycode handling
+		if (input.startsWith("grcy"))
+		{
+			var gc = input.split(":");
+			if (gc[1] == "c")
+			{
+				possibleOptionElement = $("#chore_id option[value=\"" + gc[2] + "\"]").first();
+			}
+
+			if (possibleOptionElement.length > 0)
+			{
+				tsChore.setValue(possibleOptionElement.val(), true);
+				$('#chore_id').trigger('change');
+			}
+			else
+			{
+				tsChore.clear(true);
+				tsChore.setTextboxValue('');
+				$('#chore_id').trigger('change');
+			}
+		}
+	}
 });
 
-$('#chore_id_text_input').trigger('change');
+$(tsChore.control_input).trigger('change');
 Grocy.Components.DateTimePicker.GetInputElement().trigger('input');
 Grocy.FrontendHelpers.ValidateForm('choretracking-form');
 setTimeout(function()
 {
-	$('#chore_id_text_input').focus();
+	$(tsChore.control_input).focus();
 }, Grocy.FormFocusDelay);
 
 $('#choretracking-form input').keyup(function(event)
@@ -149,17 +177,17 @@ $(document).on("Grocy.BarcodeScanned", function(e, barcode, target)
 	}
 
 	// Don't know why the blur event does not fire immediately ... this works...
-	$("#chore_id_text_input").focusout();
-	$("#chore_id_text_input").focus();
-	$("#chore_id_text_input").blur();
+	$(tsChore.control_input).focusout();
+	$(tsChore.control_input).focus();
+	$(tsChore.control_input).blur();
 
-	$("#chore_id_text_input").val(barcode);
+	tsChore.setTextboxValue(barcode);
 
 	setTimeout(function()
 	{
-		$("#chore_id_text_input").focusout();
-		$("#chore_id_text_input").focus();
-		$("#chore_id_text_input").blur();
+		$(tsChore.control_input).focusout();
+		$(tsChore.control_input).focus();
+		$(tsChore.control_input).blur();
 		$('#tracked_time').find('input').focus();
 	}, Grocy.FormFocusDelay);
 });
@@ -182,41 +210,6 @@ function UndoChoreExecution(executionId)
 		}
 	);
 };
-
-$('#chore_id_text_input').on('blur', function(e)
-{
-	if ($('#chore_id').hasClass("combobox-menu-visible"))
-	{
-		return;
-	}
-
-	var input = $('#chore_id_text_input').val().toString();
-	var possibleOptionElement = [];
-
-	// Grocycode handling
-	if (input.startsWith("grcy"))
-	{
-		var gc = input.split(":");
-		if (gc[1] == "c")
-		{
-			possibleOptionElement = $("#chore_id option[value=\"" + gc[2] + "\"]").first();
-		}
-
-		if (possibleOptionElement.length > 0)
-		{
-			$('#chore_id').val(possibleOptionElement.val());
-			$('#chore_id').data('combobox').refresh();
-			$('#chore_id').trigger('change');
-		}
-		else
-		{
-			$('#chore_id').val(null);
-			$('#chore_id_text_input').val("");
-			$('#chore_id').data('combobox').refresh();
-			$('#chore_id').trigger('change');
-		}
-	}
-});
 
 $("#tracked_time").find("input").on("focus", function(e)
 {

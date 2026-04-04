@@ -12,36 +12,36 @@
 				@yield('title')
 			</h2>
 			<div class="float-right @if($embedded) pr-5 @endif">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#table-filter-row">
 					<i class="fa-solid fa-filter"></i>
 				</button>
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
-				<a class="btn btn-link responsive-button m-1 mt-md-0 mb-md-0 discrete-link disabled"
+				<a class="btn btn-link responsive-button m-1 md:mt-0 md:mb-0 discrete-link disabled"
 					href="#">
 					{{ $__t('Group by') }}:
 				</a>
-				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right group-by-button @if($groupBy == 'product') active @endif"
+				<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right group-by-button @if($groupBy == 'product') active @endif"
 					href="#"
 					data-group-by="product">
 					{{ $__t('Product') }}
 				</a>
-				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right group-by-button @if($groupBy == 'productgroup') active @endif"
+				<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right group-by-button @if($groupBy == 'productgroup') active @endif"
 					href="#"
 					data-group-by="productgroup">
 					{{ $__t('Product group') }}
 				</a>
-				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right group-by-button @if($groupBy == 'store') active @endif"
+				<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right group-by-button @if($groupBy == 'store') active @endif"
 					href="#"
 					data-group-by="store">
 					{{ $__t('Store') }}
@@ -53,7 +53,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-sm-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -80,7 +80,7 @@
 				<option @if($productGroup->id == $selectedGroup) selected="selected" @endif
 					value="{{ $productGroup->id }}">{{ $productGroup->name }}</option>
 				@endforeach
-				<option class="font-italic font-weight-light"
+				<option class="italic font-weight-light"
 					value="ungrouped">{{ $__t('Ungrouped') }}</option>
 			</select>
 		</div>
@@ -104,7 +104,7 @@
 	</div>
 	<div class="col-sm-12 col-md-12 col-xl-12">
 		<table id="metrics-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th>{{ $__t('Name') }}</th>
@@ -114,13 +114,13 @@
 					@endif
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($metrics as $metric)
 				<tr>
 					<td>
 						@if($groupBy == 'productgroup')
 						@if(empty($metric->name))
-						<span class="font-italic font-weight-light">{{ $__t('Ungrouped') }}</span>
+						<span class="italic font-weight-light">{{ $__t('Ungrouped') }}</span>
 						@else
 						{{ $metric->name }}
 						@endif
@@ -135,7 +135,7 @@
 					@if($groupBy == 'product')
 					<td>
 						@if(empty($metric->group_name))
-						<span class="font-italic font-weight-light">{{ $__t('Ungrouped') }}</span>
+						<span class="italic font-weight-light">{{ $__t('Ungrouped') }}</span>
 						@else
 						{{ $metric->group_name }}
 						@endif

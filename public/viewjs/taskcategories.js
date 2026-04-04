@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#taskcategories-table tbody').removeClass("d-none");
+$('#taskcategories-table tbody').removeClass("hidden");
 categoriesTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

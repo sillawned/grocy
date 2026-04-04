@@ -9,13 +9,13 @@
 	<div class="col">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 order-md-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
 				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right"
 					href="{{ $U('/batteriesjournal') }}">
@@ -33,9 +33,9 @@
 			<div id="info-due-soon-batteries"
 				data-status-filter="duesoon"
 				data-next-x-days="{{ $nextXDays }}"
-				class="warning-message status-filter-message responsive-button @if($nextXDays == 0) d-none @endif"></div>
+				class="warning-message status-filter-message responsive-button @if($nextXDays == 0) hidden @endif"></div>
 			<div class="float-right mt-1 @if($embedded) pr-5 @endif">
-				<a class="btn btn-sm btn-outline-info d-md-none"
+				<a class="btn btn-sm btn-outline-info md:hidden"
 					data-toggle="collapse"
 					href="#table-filter-row"
 					role="button">
@@ -52,7 +52,7 @@
 	</div>
 </div>
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -86,7 +86,7 @@
 <div class="row">
 	<div class="col">
 		<table id="batteries-overview-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -99,7 +99,7 @@
 					<th class="allow-grouping">{{ $__t('Used in') }}</th>
 					<th>{{ $__t('Last charged') }}</th>
 					<th>{{ $__t('Next planned charge cycle') }}</th>
-					<th class="d-none">Hidden status</th>
+					<th class="hidden">Hidden status</th>
 
 					@include('components.userfields_thead', array(
 					'userfields' => $userfields
@@ -107,7 +107,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($current as $currentBatteryEntry)
 				<tr id="battery-{{ $currentBatteryEntry->battery_id }}-row"
 					class="@if($currentBatteryEntry->due_type == 'overdue') table-danger @elseif($currentBatteryEntry->due_type == 'duetoday') table-info @elseif($currentBatteryEntry->due_type == 'duesoon') table-warning @endif">
@@ -121,7 +121,7 @@
 							data-battery-name="{{ FindObjectInArrayByPropertyValue($batteries, 'id', $currentBatteryEntry->battery_id)->name }}">
 							<i class="fa-solid fa-car-battery"></i>
 						</a>
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-sm btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">
@@ -185,7 +185,7 @@
 						...
 						@endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						{{ $currentBatteryEntry->due_type }}
 						@if($currentBatteryEntry->due_type == 'duetoday')
 						duesoon

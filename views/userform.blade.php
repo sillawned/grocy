@@ -142,12 +142,12 @@
 							id="user-picture"
 							accept="image/*">
 						<label id="user-picture-label"
-							class="custom-file-label @if(empty($user->picture_file_name)) d-none @endif"
+							class="custom-file-label @if(empty($user->picture_file_name)) hidden @endif"
 							for="user-picture">
 							{{ $user->picture_file_name }}
 						</label>
 						<label id="user-picture-label-none"
-							class="custom-file-label @if(!empty($user->picture_file_name)) d-none @endif"
+							class="custom-file-label @if(!empty($user->picture_file_name)) hidden @endif"
 							for="user-picture">
 							{{ $__t('No file selected') }}
 						</label>
@@ -165,10 +165,10 @@
 			class="img-fluid img-thumbnail mt-2 mb-5"
 			loading="lazy">
 		<p id="delete-current-user-picture-on-save-hint"
-			class="form-text text-muted font-italic d-none mb-5">{{ $__t('The current picture will be deleted on save') }}</p>
+			class="form-text text-muted italic hidden mb-5">{{ $__t('The current picture will be deleted on save') }}</p>
 		@else
 		<p id="no-current-user-picture-hint"
-			class="form-text text-muted font-italic mb-5">{{ $__t('No picture available') }}</p>
+			class="form-text text-muted italic mb-5">{{ $__t('No picture available') }}</p>
 		@endif
 	</div>
 </div>

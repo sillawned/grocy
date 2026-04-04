@@ -15,6 +15,7 @@ $("#auto-night-mode-enabled").on("change", function()
 	if (!value && !BoolVal(Grocy.UserSettings.night_mode_enabled_internal))
 	{
 		$("body").removeClass("night-mode");
+		$("html").removeClass("dark");
 	}
 
 	// Force disable night mode when auto night mode is enabled
@@ -115,10 +116,12 @@ function CheckNightMode()
 		}
 
 		$("body").addClass("night-mode");
+		$("html").addClass("dark");
 	}
 	else
 	{
 		$("body").removeClass("night-mode");
+		$("html").removeClass("dark");
 	}
 }
 

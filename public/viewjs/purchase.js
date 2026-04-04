@@ -9,12 +9,12 @@ $('#save-purchase-button').on('click', function(e)
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -106,9 +106,9 @@ $('#save-purchase-button').on('click', function(e)
 						Grocy.Api.Post('objects/product_barcodes', jsonDataBarcode,
 							function(result)
 							{
-								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("d-none");
-								$('#barcode-lookup-disabled-hint').addClass('d-none');
-								$('#barcode-lookup-hint').removeClass('d-none');
+								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("hidden");
+								$('#barcode-lookup-disabled-hint').addClass('hidden');
+								$('#barcode-lookup-hint').removeClass('hidden');
 								window.history.replaceState({}, document.title, U("/purchase"));
 							},
 							function(xhr)
@@ -208,7 +208,7 @@ $('#save-purchase-button').on('click', function(e)
 							$('#display_amount').val(Grocy.UserSettings.stock_default_purchase_amount);
 							$(".input-group-productamountpicker").trigger("change");
 							$('#price').val('');
-							$("#tare-weight-handling-info").addClass("d-none");
+							$("#tare-weight-handling-info").addClass("hidden");
 							if (Grocy.FeatureFlags.GROCY_FEATURE_FLAG_STOCK_LOCATION_TRACKING)
 							{
 								Grocy.Components.LocationPicker.Clear();
@@ -331,12 +331,12 @@ if (Grocy.Components.ProductPicker !== undefined)
 					{
 						var minAmount = productDetails.product.tare_weight / $("#qu_id option:selected").attr("data-qu-factor") + productDetails.stock_amount;
 						$("#display_amount").attr("min", minAmount);
-						$("#tare-weight-handling-info").removeClass("d-none");
+						$("#tare-weight-handling-info").removeClass("hidden");
 					}
 					else
 					{
 						$("#display_amount").attr("min", Grocy.DefaultMinAmount);
-						$("#tare-weight-handling-info").addClass("d-none");
+						$("#tare-weight-handling-info").addClass("hidden");
 					}
 
 					PrefillBestBeforeDate(productDetails.product, productDetails.location);

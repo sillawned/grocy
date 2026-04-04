@@ -9,13 +9,13 @@
 	<div class="col">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 order-md-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#related-links">
 				<i class="fa-solid fa-ellipsis-v"></i>
 			</button>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 				id="related-links">
 				<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right"
 					href="{{ $U('/choresjournal') }}">
@@ -33,14 +33,14 @@
 			<div id="info-due-soon-chores"
 				data-status-filter="duesoon"
 				data-next-x-days="{{ $nextXDays }}"
-				class="warning-message status-filter-message responsive-message mr-2 @if($nextXDays == 0) d-none @endif"></div>
+				class="warning-message status-filter-message responsive-message mr-2 @if($nextXDays == 0) hidden @endif"></div>
 			@if(GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS)
 			<div id="info-assigned-to-me-chores"
 				data-user-filter="xx{{ GROCY_USER_ID }}xx"
 				class="secondary-message user-filter-message responsive-button"></div>
 			@endif
 			<div class="float-right mt-1 @if($embedded) pr-5 @endif">
-				<a class="btn btn-sm btn-outline-info d-md-none"
+				<a class="btn btn-sm btn-outline-info md:hidden"
 					data-toggle="collapse"
 					href="#table-filter-row"
 					role="button">
@@ -57,7 +57,7 @@
 	</div>
 </div>
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -108,7 +108,7 @@
 <div class="row">
 	<div class="col">
 		<table id="chores-overview-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -120,9 +120,9 @@
 					<th>{{ $__t('Chore') }}</th>
 					<th>{{ $__t('Next estimated tracking') }}</th>
 					<th>{{ $__t('Last tracked') }}</th>
-					<th class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) d-none @endif allow-grouping">{{ $__t('Assigned to') }}</th>
-					<th class="d-none">Hidden status</th>
-					<th class="d-none">Hidden assigned to user id</th>
+					<th class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) hidden @endif allow-grouping">{{ $__t('Assigned to') }}</th>
+					<th class="hidden">Hidden status</th>
+					<th class="hidden">Hidden assigned to user id</th>
 
 					@include('components.userfields_thead', array(
 					'userfields' => $userfields
@@ -130,7 +130,7 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($currentChores as $curentChoreEntry)
 				<tr id="chore-{{ $curentChoreEntry->chore_id }}-row"
 					class="@if($curentChoreEntry->due_type == 'overdue') table-danger @elseif($curentChoreEntry->due_type == 'duetoday') table-info @elseif($curentChoreEntry->due_type == 'duesoon') table-warning @endif">
@@ -157,7 +157,7 @@
 							data-chore-name="{{ FindObjectInArrayByPropertyValue($chores, 'id', $curentChoreEntry->chore_id)->name }}">
 							<i class="fa-solid fa-forward"></i>
 						</a>
-						<div class="dropdown d-inline-block">
+						<div class="dropdown inline-block">
 							<button class="btn btn-sm btn-light text-secondary"
 								type="button"
 								data-toggle="dropdown">
@@ -252,7 +252,7 @@
 						@endif
 					</td>
 
-					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) d-none @endif">
+					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) hidden @endif">
 						<span id="chore-{{ $curentChoreEntry->chore_id }}-next-execution-assigned-user">
 							@if(!empty($curentChoreEntry->next_execution_assigned_to_user_id))
 							{{ FindObjectInArrayByPropertyValue($users, 'id', $curentChoreEntry->next_execution_assigned_to_user_id)->display_name }}
@@ -270,13 +270,13 @@
 						</span>
 					</td>
 					<td id="chore-{{ $curentChoreEntry->chore_id }}-due-filter-column"
-						class="d-none">
+						class="hidden">
 						{{ $curentChoreEntry->due_type }}
 						@if($curentChoreEntry->due_type == 'duetoday')
 						duesoon
 						@endif
 					</td>
-					<td class="d-none">
+					<td class="hidden">
 						@if(!empty($curentChoreEntry->next_execution_assigned_to_user_id))
 						xx{{ $curentChoreEntry->next_execution_assigned_to_user_id }}xx
 					</td>
@@ -303,7 +303,7 @@
 	tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content text-center">
-			<div class="modal-header d-block">
+			<div class="modal-header block">
 				<h4 class="modal-title">{{ $__t('Reschedule next execution') }}</h4>
 				<h5 id="reschedule-chore-modal-title"
 					class="text-muted"></h5>

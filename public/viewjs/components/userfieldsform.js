@@ -237,7 +237,7 @@ Grocy.Components.UserfieldsForm.Load = function()
 							input.val(value.split(","));
 						}
 
-						$(".selectpicker").selectpicker("render");
+						$(".selectpicker").each(function() { if (this.tomselect) { this.tomselect.sync(); } });
 					}
 					else if (input.attr('type') == "file")
 					{
@@ -249,14 +249,14 @@ Grocy.Components.UserfieldsForm.Load = function()
 
 							formGroup.find("label.custom-file-label").text(fileName);
 							formGroup.find(".userfield-file-show").attr('href', U('/files/userfiles/' + value));
-							formGroup.find('.userfield-file-show').removeClass('d-none');
+							formGroup.find('.userfield-file-show').removeClass('hidden');
 							formGroup.find('img.userfield-current-file').attr('src', U('/files/userfiles/' + value + '?force_serve_as=picture&best_fit_width=250&best_fit_height=250'));
 
 							formGroup.find('.userfield-file-delete').click(
 								function()
 								{
 									formGroup.find("label.custom-file-label").text(__t("No file selected"));
-									formGroup.find(".userfield-file-show").addClass('d-none');
+									formGroup.find(".userfield-file-show").addClass('hidden');
 									input.attr('data-old-file', fileSrc);
 									input.addClass("is-dirty");
 								}
@@ -264,7 +264,7 @@ Grocy.Components.UserfieldsForm.Load = function()
 
 							input.on("change", function(e)
 							{
-								formGroup.find(".userfield-file-show").addClass('d-none');
+								formGroup.find(".userfield-file-show").addClass('hidden');
 							});
 						}
 					}
@@ -321,7 +321,7 @@ Grocy.Components.UserfieldsForm.Clear = function()
 				else if (input.hasAttr("multiple"))
 				{
 					input.val("");
-					$(".selectpicker").selectpicker("render");
+					$(".selectpicker").each(function() { if (this.tomselect) { this.tomselect.sync(); } });
 				}
 				else if (input.attr('type') == "file")
 				{
@@ -329,7 +329,7 @@ Grocy.Components.UserfieldsForm.Clear = function()
 
 					formGroup.find("label.custom-file-label").text("");
 					formGroup.find(".userfield-file-show").attr('href', U('/files/userfiles/' + value));
-					formGroup.find('.userfield-file-show').removeClass('d-none');
+					formGroup.find('.userfield-file-show').removeClass('hidden');
 					formGroup.find('img.userfield-current-file')
 						.attr('src', U('/files/userfiles/' + value + '?force_serve_as=picture&best_fit_width=250&best_fit_height=250'));
 
@@ -337,14 +337,14 @@ Grocy.Components.UserfieldsForm.Clear = function()
 						function()
 						{
 							formGroup.find("label.custom-file-label").text(__t("No file selected"));
-							formGroup.find(".userfield-file-show").addClass('d-none');
+							formGroup.find(".userfield-file-show").addClass('hidden');
 							input.attr('data-old-file', "");
 						}
 					);
 
 					input.on("change", function(e)
 					{
-						formGroup.find(".userfield-file-show").addClass('d-none');
+						formGroup.find(".userfield-file-show").addClass('hidden');
 					});
 				}
 				else if (input.attr("data-userfield-type") == "link")
@@ -395,7 +395,15 @@ $(".userfield-input").change(function(e)
 	});
 });
 
-$(".userfield-input.selectpicker").on("changed.bs.select", function()
+$(".userfield-input.selectpicker").each(function()
 {
-	$(this).addClass("is-dirty");
+	var el = this;
+	new TomSelect(el, {
+		plugins: ['remove_button'],
+		create: false,
+		onChange: function()
+		{
+			$(el).addClass("is-dirty");
+		}
+	});
 });

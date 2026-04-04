@@ -9,7 +9,7 @@
 	<div class="col">
 		<h2 class="title">@yield('title')</h2>
 		<div class="float-right @if($embedded) pr-5 @endif">
-			<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+			<button class="btn btn-outline-dark md:hidden mt-2 order-1 order-md-3"
 				type="button"
 				data-toggle="collapse"
 				data-target="#table-filter-row">
@@ -21,7 +21,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -79,7 +79,7 @@
 <div class="row mt-2">
 	<div class="col">
 		<table id="chores-journal-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -92,17 +92,17 @@
 					<th>{{ $__t('Tracked time') }}</th>
 					<th>{{ $__t('Scheduled tracking time') }}</th>
 					<th>{{ $__t('Time of tracking') }}</th>
-					<th class="allow-grouping @if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) d-none @endif">{{ $__t('Done by') }}</th>
+					<th class="allow-grouping @if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) hidden @endif">{{ $__t('Done by') }}</th>
 
 					@include('components.userfields_thead', array(
 					'userfields' => $userfields
 					))
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($choresLog as $choreLogEntry)
 				<tr id="chore-execution-{{ $choreLogEntry->id }}-row"
-					class="@if($choreLogEntry->undone == 1) text-muted @endif @if($choreLogEntry->skipped == 1) font-italic @endif @if (!empty($choreLogEntry->scheduled_execution_time) && $choreLogEntry->skipped == 0 && $choreLogEntry->tracked_time > $choreLogEntry->scheduled_execution_time) table-danger @endif">
+					class="@if($choreLogEntry->undone == 1) text-muted @endif @if($choreLogEntry->skipped == 1) italic @endif @if (!empty($choreLogEntry->scheduled_execution_time) && $choreLogEntry->skipped == 0 && $choreLogEntry->tracked_time > $choreLogEntry->scheduled_execution_time) table-danger @endif">
 					<td class="fit-content border-right">
 						<a class="btn btn-secondary btn-xs undo-chore-execution-button permission-CHORE_UNDO_EXECUTION @if($choreLogEntry->undone == 1) disabled @endif"
 							href="#"
@@ -142,7 +142,7 @@
 						<time class="timeago timeago-contextual"
 							datetime="{{ $choreLogEntry->row_created_timestamp }}"></time>
 					</td>
-					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) d-none @endif">
+					<td class="@if(!GROCY_FEATURE_FLAG_CHORES_ASSIGNMENTS) hidden @endif">
 						@if ($choreLogEntry->done_by_user_id !== null && !empty($choreLogEntry->done_by_user_id))
 						{{ GetUserDisplayName(FindObjectInArrayByPropertyValue($users, 'id', $choreLogEntry->done_by_user_id)) }}
 						@else

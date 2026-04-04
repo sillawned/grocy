@@ -146,8 +146,8 @@ if (GetUriParam("flow") == "InplaceNewProductWithName")
 
 if (GetUriParam("flow") !== undefined || GetUriParam("returnto") !== undefined)
 {
-	$("#save-hint").addClass("d-none");
-	$(".save-product-button[data-location='return']").addClass("d-none");
+	$("#save-hint").addClass("hidden");
+	$(".save-product-button[data-location='return']").addClass("hidden");
 }
 
 $('.input-group-qu').on('change', function(e)
@@ -215,10 +215,10 @@ $("#enable_tare_weight_handling").on("click", function()
 
 $("#product-picture").on("change", function(e)
 {
-	$("#product-picture-label").removeClass("d-none");
-	$("#product-picture-label-none").addClass("d-none");
-	$("#delete-current-product-picture-on-save-hint").addClass("d-none");
-	$("#current-product-picture").addClass("d-none");
+	$("#product-picture-label").removeClass("hidden");
+	$("#product-picture-label-none").addClass("hidden");
+	$("#delete-current-product-picture-on-save-hint").addClass("hidden");
+	$("#current-product-picture").addClass("hidden");
 	Grocy.DeleteProductPictureOnSave = false;
 });
 
@@ -226,10 +226,10 @@ Grocy.DeleteProductPictureOnSave = false;
 $("#delete-current-product-picture-button").on("click", function(e)
 {
 	Grocy.DeleteProductPictureOnSave = true;
-	$("#current-product-picture").addClass("d-none");
-	$("#delete-current-product-picture-on-save-hint").removeClass("d-none");
-	$("#product-picture-label").addClass("d-none");
-	$("#product-picture-label-none").removeClass("d-none");
+	$("#current-product-picture").addClass("hidden");
+	$("#delete-current-product-picture-on-save-hint").removeClass("hidden");
+	$("#product-picture-label").addClass("hidden");
+	$("#product-picture-label-none").removeClass("hidden");
 });
 
 var quConversionsTable = $('#qu-conversions-table-products').DataTable({
@@ -239,7 +239,7 @@ var quConversionsTable = $('#qu-conversions-table-products').DataTable({
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#qu-conversions-table-products tbody').removeClass("d-none");
+$('#qu-conversions-table-products tbody').removeClass("hidden");
 quConversionsTable.columns.adjust().draw();
 
 var barcodeTable = $('#barcode-table').DataTable({
@@ -252,7 +252,7 @@ var barcodeTable = $('#barcode-table').DataTable({
 		{ 'visible': false, 'targets': 6 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#barcode-table tbody').removeClass("d-none");
+$('#barcode-table tbody').removeClass("hidden");
 barcodeTable.columns.adjust().draw();
 
 Grocy.Components.UserfieldsForm.Load();

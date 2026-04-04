@@ -49,7 +49,7 @@
 			'nextInputSelector' => '#amount'
 			))
 
-			<div class="form-group mb-2 @if(!GROCY_FEATURE_FLAG_STOCK) d-none @endif">
+			<div class="form-group mb-2 @if(!GROCY_FEATURE_FLAG_STOCK) hidden @endif">
 				<div class="custom-control custom-checkbox">
 					<input @if($mode=='edit'
 						&&
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 
-			<div class="form-group @if(!GROCY_FEATURE_FLAG_STOCK) d-none @endif">
+			<div class="form-group @if(!GROCY_FEATURE_FLAG_STOCK) hidden @endif">
 				<div class="custom-control custom-checkbox">
 					<input @if($mode=='edit'
 						&&

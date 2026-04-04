@@ -18,7 +18,7 @@ var shoppingListTable = $('#shoppinglist-table').DataTable({
 		dataSrc: 3
 	}
 });
-$('#shoppinglist-table tbody').removeClass("d-none");
+$('#shoppinglist-table tbody').removeClass("hidden");
 shoppingListTable.columns.adjust().draw();
 
 var shoppingListPrintShadowTable = $('#shopping-list-print-shadow-table').DataTable({
@@ -130,7 +130,7 @@ $(document).on('click', '.shoppinglist-delete-button', function(e)
 			animateCSS("#shoppinglistitem-" + shoppingListItemId + "-row", "fadeOut", function()
 			{
 				Grocy.FrontendHelpers.EndUiBusy();
-				$("#shoppinglistitem-" + shoppingListItemId + "-row").addClass("d-none").remove();
+				$("#shoppinglistitem-" + shoppingListItemId + "-row").addClass("hidden").remove();
 				OnListItemRemoved();
 			});
 		},
@@ -247,14 +247,14 @@ $(document).on('click', '.shopping-list-stock-add-workflow-list-item-button', fu
 
 	if (Grocy.ShoppingListToStockWorkflowAll)
 	{
-		$("#shopping-list-stock-add-workflow-purchase-item-count").removeClass("d-none");
+		$("#shopping-list-stock-add-workflow-purchase-item-count").removeClass("hidden");
 		$("#shopping-list-stock-add-workflow-purchase-item-count").text(__t("Adding shopping list item %1$s of %2$s", Grocy.ShoppingListToStockWorkflowCurrent, Grocy.ShoppingListToStockWorkflowCount));
-		$("#shopping-list-stock-add-workflow-skip-button").removeClass("d-none");
+		$("#shopping-list-stock-add-workflow-skip-button").removeClass("hidden");
 	}
 	else
 	{
-		$("#shopping-list-stock-add-workflow-purchase-item-count").addClass("d-none");
-		$("#shopping-list-stock-add-workflow-skip-button").addClass("d-none");
+		$("#shopping-list-stock-add-workflow-purchase-item-count").addClass("hidden");
+		$("#shopping-list-stock-add-workflow-skip-button").addClass("hidden");
 	}
 });
 
@@ -268,7 +268,7 @@ $(document).on('click', '#add-all-items-to-stock-button', function(e)
 	Grocy.ShoppingListAddToStockButtonList = $(".shopping-list-stock-add-workflow-list-item-button");
 	Grocy.ShoppingListToStockWorkflowCount = Grocy.ShoppingListAddToStockButtonList.length;
 	Grocy.ShoppingListToStockWorkflowCurrent++;
-	$("#shopping-list-stock-add-workflow-modal .modal-footer").removeClass("d-none");
+	$("#shopping-list-stock-add-workflow-modal .modal-footer").removeClass("hidden");
 	$(".shopping-list-stock-add-workflow-list-item-button").first().click();
 });
 
@@ -278,7 +278,7 @@ $("#shopping-list-stock-add-workflow-modal").on("hidden.bs.modal", function(e)
 	Grocy.ShoppingListToStockWorkflowCount = 0;
 	Grocy.ShoppingListToStockWorkflowCurrent = 0;
 	Grocy.ShoppingListAddToStockButtonList = [];
-	$("#shopping-list-stock-add-workflow-modal .modal-footer").addClass("d-none");
+	$("#shopping-list-stock-add-workflow-modal .modal-footer").addClass("hidden");
 })
 
 $(window).on("message", function(e)
@@ -524,7 +524,7 @@ $(document).on("click", "#print-shopping-list-button", function(e)
 
 				if (!$("#print-show-header").prop("checked"))
 				{
-					$("#print-header").addClass("d-none");
+					$("#print-header").addClass("hidden");
 				}
 
 				if (!$("#print-group-by-product-group").prop("checked"))
@@ -533,8 +533,8 @@ $(document).on("click", "#print-shopping-list-button", function(e)
 					shoppingListPrintShadowTable.draw();
 				}
 
-				$(".print-layout-container").addClass("d-none");
-				$(".print-layout-type-" + $("input[name='print-layout-type']:checked").val()).removeClass("d-none");
+				$(".print-layout-container").addClass("hidden");
+				$(".print-layout-type-" + $("input[name='print-layout-type']:checked").val()).removeClass("hidden");
 
 				window.print();
 			}

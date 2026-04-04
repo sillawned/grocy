@@ -44,7 +44,7 @@
 
 			<div class="form-group">
 				<label for="scanned_codes">{{ $__t('Scanned barcodes') }}</label>
-				<div class="float-right font-weight-bold">
+				<div class="float-right font-bold">
 					<span class="text-success">{{ $__t('Hit') }}: <span id="hit-count"
 							class="locale-number locale-number-generic">0</span></span> //
 					<span class="text-danger">{{ $__t('Miss') }}: <span id="miss-count"

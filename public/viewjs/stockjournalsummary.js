@@ -5,7 +5,7 @@ var journalSummaryTable = $('#stock-journal-summary-table').DataTable({
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#stock-journal-summary-table tbody').removeClass("d-none");
+$('#stock-journal-summary-table tbody').removeClass("hidden");
 journalSummaryTable.columns.adjust().draw();
 
 $("#product-filter").on("change", function()

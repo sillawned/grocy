@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#quantityunits-table tbody').removeClass("d-none");
+$('#quantityunits-table tbody').removeClass("hidden");
 quantityUnitsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

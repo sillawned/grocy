@@ -34,7 +34,7 @@ var stockOverviewTable = $('#stock-overview-table').DataTable({
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
 
-$('#stock-overview-table tbody').removeClass("d-none");
+$('#stock-overview-table tbody').removeClass("hidden");
 stockOverviewTable.columns.adjust().draw();
 
 $("#location-filter").on("change", function()
@@ -300,7 +300,7 @@ function RefreshProductRow(productId)
 			productRow.removeClass("table-danger");
 			productRow.removeClass("table-secondary");
 			productRow.removeClass("table-info");
-			productRow.removeClass("d-none");
+			productRow.removeClass("hidden");
 			productRow.removeAttr("style");
 			if (now.isAfter(nextDueDate))
 			{
@@ -326,7 +326,7 @@ function RefreshProductRow(productId)
 			{
 				animateCSS("#product-" + productId + "-row", "fadeOut", function()
 				{
-					$("#product-" + productId + "-row").addClass("d-none");
+					$("#product-" + productId + "-row").addClass("hidden");
 				});
 			}
 			else

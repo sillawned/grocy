@@ -95,7 +95,7 @@
 			'entity' => 'quantity_units'
 			))
 
-			<small class="my-2 form-text text-muted @if($mode == 'edit') d-none @endif">{{ $__t('Save & continue to add conversions') }}</small>
+			<small class="my-2 form-text text-muted @if($mode == 'edit') hidden @endif">{{ $__t('Save & continue to add conversions') }}</small>
 
 			<button class="save-quantityunit-button btn btn-success mb-2"
 				data-location="continue">{{ $__t('Save & continue') }}</button>
@@ -110,24 +110,24 @@
 		</form>
 	</div>
 
-	<div class="col-lg-6 col-12 @if($mode == 'create') d-none @endif">
+	<div class="col-lg-6 col-12 @if($mode == 'create') hidden @endif">
 		<div class="row">
 			<div class="col">
 				<div class="title-related-links">
 					<h4>
 						{{ $__t('Default conversions') }}
 						<small id="qu-conversion-headline-info"
-							class="text-muted font-italic"></small>
+							class="text-muted italic"></small>
 					</h4>
-					<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+					<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 						type="button"
 						data-toggle="collapse"
 						data-target="#related-links">
 						<i class="fa-solid fa-ellipsis-v"></i>
 					</button>
-					<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+					<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 						id="related-links">
-						<a class="btn btn-outline-primary btn-sm m-1 mt-md-0 mb-md-0 float-right show-as-dialog-link"
+						<a class="btn btn-outline-primary btn-sm m-1 md:mt-0 md:mb-0 float-right show-as-dialog-link"
 							href="{{ $U('/quantityunitconversion/new?embedded&qu-unit=' . $quantityUnit->id ) }}">
 							{{ $__t('Add') }}
 						</a>
@@ -135,7 +135,7 @@
 				</div>
 
 				<table id="qu-conversions-table"
-					class="table table-sm table-striped nowrap w-100">
+					class="table table-sm table-striped nowrap w-full">
 					<thead>
 						<tr>
 							<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -148,7 +148,7 @@
 							<th>{{ $__t('Unit') }}</th>
 						</tr>
 					</thead>
-					<tbody class="d-none">
+					<tbody class="hidden">
 						@if($mode == "edit")
 						@foreach($defaultQuConversions as $defaultQuConversion)
 						<tr>

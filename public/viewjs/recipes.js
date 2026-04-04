@@ -16,7 +16,7 @@
 		this.api().row({ order: 'current' }, 0).select();
 	}
 });
-$('#recipes-table tbody').removeClass("d-none");
+$('#recipes-table tbody').removeClass("hidden");
 recipesTables.columns.adjust().draw();
 
 if ((typeof GetUriParam("tab") !== "undefined" && GetUriParam("tab") === "gallery") || window.localStorage.getItem("recipes_last_tab_id") == "gallery-tab")
@@ -80,8 +80,8 @@ $("#search").on("keyup", Delay(function()
 		UpdateUriParam("search", value);
 	}
 
-	$(".recipe-gallery-item").removeClass("d-none");
-	$(".recipe-gallery-item .card-title-search:not(:contains_case_insensitive(" + value + "))").parent().parent().parent().addClass("d-none");
+	$(".recipe-gallery-item").removeClass("hidden");
+	$(".recipe-gallery-item .card-title-search:not(:contains_case_insensitive(" + value + "))").parent().parent().parent().addClass("hidden");
 }, Grocy.FormFocusDelay));
 
 $("#clear-filter-button").on("click", function()
@@ -102,20 +102,20 @@ $("#status-filter").on("change", function()
 
 	recipesTables.column(recipesTables.colReorder.transpose(6)).search(value).draw();
 
-	$('.recipe-gallery-item').removeClass('d-none');
+	$('.recipe-gallery-item').removeClass('hidden');
 	if (value !== "")
 	{
 		if (value === 'Xenoughinstock')
 		{
-			$('.recipe-gallery-item').not('.recipe-enoughinstock').addClass('d-none');
+			$('.recipe-gallery-item').not('.recipe-enoughinstock').addClass('hidden');
 		}
 		else if (value === 'enoughinstockwithshoppinglist')
 		{
-			$('.recipe-gallery-item').not('.recipe-enoughinstockwithshoppinglist').addClass('d-none');
+			$('.recipe-gallery-item').not('.recipe-enoughinstockwithshoppinglist').addClass('hidden');
 		}
 		if (value === 'notenoughinstock')
 		{
-			$('.recipe-gallery-item').not('.recipe-notenoughinstock').addClass('d-none');
+			$('.recipe-gallery-item').not('.recipe-notenoughinstock').addClass('hidden');
 		}
 	}
 
@@ -192,7 +192,7 @@ $(document).on('click', '.recipe-shopping-list', function(e)
 	var objectId = $(e.currentTarget).attr('data-recipe-id');
 
 	bootbox.confirm({
-		message: __t('Are you sure you want to put all missing ingredients for recipe "%s" on the shopping list?', objectName) + "<br><br>" + __t("Uncheck ingredients to not put them on the shopping list") + ":" + $("#missing-recipe-pos-list")[0].outerHTML.replace("d-none", ""),
+		message: __t('Are you sure you want to put all missing ingredients for recipe "%s" on the shopping list?', objectName) + "<br><br>" + __t("Uncheck ingredients to not put them on the shopping list") + ":" + $("#missing-recipe-pos-list")[0].outerHTML.replace("hidden", ""),
 		closeButton: false,
 		buttons: {
 			confirm: {
@@ -362,7 +362,7 @@ $(".recipe-fullscreen").on('click', function(e)
 	$(".recipe-content-container").toggleClass("row");
 	$(".recipe-content-container .ingredients").toggleClass("tab-pane").toggleClass("col-12 col-md-6 col-xl-4");
 	$(".recipe-content-container .preparation").toggleClass("tab-pane").toggleClass("col-12 col-md-6 col-xl-8");
-	$(".recipe-headline").toggleClass("d-none");
+	$(".recipe-headline").toggleClass("hidden");
 
 	if ($("body").hasClass("fullscreen-card"))
 	{
@@ -454,8 +454,7 @@ $(document).on("click", ".add-to-mealplan-button", function(e)
 	Grocy.Components.DateTimePicker.SetValue(moment().format("YYYY-MM-DD"));
 	Grocy.Components.RecipePicker.Clear();
 	$("#add-to-mealplan-modal").modal("show");
-	$('#recipe_id').val($(e.currentTarget).attr("data-recipe-id"));
-	$('#recipe_id').data('combobox').refresh();
+	Grocy.Components.RecipePicker._tsInstance.setValue($(e.currentTarget).attr("data-recipe-id"), true);
 	$('#recipe_id').trigger('change');
 	Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form");
 	$("#recipe_servings").focus();
@@ -465,7 +464,7 @@ $('#save-add-to-mealplan-button').on('click', function(e)
 {
 	e.preventDefault();
 
-	if (!Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form", true) || $(".combobox-menu-visible").length)
+	if (!Grocy.FrontendHelpers.ValidateForm("add-to-mealplan-form", true) || $(".ts-wrapper.dropdown-active").length)
 	{
 		return false;
 	}

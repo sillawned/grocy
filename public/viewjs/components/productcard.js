@@ -37,20 +37,20 @@ Grocy.Components.ProductCard.Refresh = function(productId)
 					$('#productcard-product-stock-opened-amount-aggregated').text("");
 				}
 
-				$("#productcard-aggregated-amounts").removeClass("d-none");
+				$("#productcard-aggregated-amounts").removeClass("hidden");
 			}
 			else
 			{
-				$("#productcard-aggregated-amounts").addClass("d-none");
+				$("#productcard-aggregated-amounts").addClass("hidden");
 			}
 
 			if (productDetails.product.description)
 			{
-				$("#productcard-product-description-wrapper").removeClass("d-none");
+				$("#productcard-product-description-wrapper").removeClass("hidden");
 			}
 			else
 			{
-				$("#productcard-product-description-wrapper").addClass("d-none");
+				$("#productcard-product-description-wrapper").addClass("hidden");
 			}
 
 			if (productDetails.average_shelf_life_days == -1)
@@ -108,19 +108,19 @@ Grocy.Components.ProductCard.Refresh = function(productId)
 
 			if (productDetails.product.picture_file_name)
 			{
-				$("#productcard-product-picture").removeClass("d-none");
+				$("#productcard-product-picture").removeClass("hidden");
 				$("#productcard-product-picture").attr("src", U('/api/files/productpictures/' + btoa(productDetails.product.picture_file_name) + '?force_serve_as=picture&best_fit_width=400'));
 			}
 			else
 			{
-				$("#productcard-product-picture").addClass("d-none");
+				$("#productcard-product-picture").addClass("hidden");
 			}
 
-			$("#productcard-product-stock-amount-wrapper").removeClass("d-none");
+			$("#productcard-product-stock-amount-wrapper").removeClass("hidden");
 			$("#productcard-aggregated-amounts").addClass("pl-2");
 			if (productDetails.product.no_own_stock == 1)
 			{
-				$("#productcard-product-stock-amount-wrapper").addClass("d-none");
+				$("#productcard-product-stock-amount-wrapper").addClass("hidden");
 				$("#productcard-aggregated-amounts").removeClass("pl-2");
 			}
 
@@ -134,8 +134,8 @@ Grocy.Components.ProductCard.Refresh = function(productId)
 					{
 						if (priceHistoryDataPoints.length > 0)
 						{
-							$("#productcard-product-price-history-chart").removeClass("d-none");
-							$("#productcard-no-price-data-hint").addClass("d-none");
+							$("#productcard-product-price-history-chart").removeClass("hidden");
+							$("#productcard-no-price-data-hint").addClass("hidden");
 
 							Grocy.Components.ProductCard.ReInitPriceHistoryChart();
 
@@ -201,8 +201,8 @@ Grocy.Components.ProductCard.Refresh = function(productId)
 						}
 						else
 						{
-							$("#productcard-product-price-history-chart").addClass("d-none");
-							$("#productcard-no-price-data-hint").removeClass("d-none");
+							$("#productcard-product-price-history-chart").addClass("hidden");
+							$("#productcard-no-price-data-hint").removeClass("hidden");
 						}
 					},
 					function(xhr)

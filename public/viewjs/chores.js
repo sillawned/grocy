@@ -5,7 +5,7 @@
 		{ 'searchable': false, "targets": 0 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#chores-table tbody').removeClass("d-none");
+$('#chores-table tbody').removeClass("hidden");
 choresTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

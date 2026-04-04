@@ -53,7 +53,7 @@
 						<h3><span id="productcard-product-name"></span></h3>
 
 						<div id="productcard-product-description-wrapper"
-							class="expandable-text mb-2 d-none">
+							class="expandable-text mb-2 hidden">
 							<p id="productcard-product-description"
 								class="text-muted collapse mb-0"></p>
 							<a class="collapsed"
@@ -67,11 +67,11 @@
 								class="locale-number locale-number-quantity-amount"></span> <span id="productcard-product-stock-qu-name"></span>
 						</span>
 						<span id="productcard-product-stock-opened-amount"
-							class="small font-italic"></span>
+							class="small italic"></span>
 						<span id="productcard-aggregated-amounts"
-							class="pl-2 text-secondary d-none"><i class="fa-solid fa-custom-sigma-sign"></i> <span id="productcard-product-stock-amount-aggregated"
+							class="pl-2 text-secondary hidden"><i class="fa-solid fa-custom-sigma-sign"></i> <span id="productcard-product-stock-amount-aggregated"
 								class="locale-number locale-number-quantity-amount"></span> <span id="productcard-product-stock-qu-name-aggregated"></span> <span id="productcard-product-stock-opened-amount-aggregated"
-								class="small font-italic"></span></span><br>
+								class="small italic"></span></span><br>
 
 						@if(GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 						<strong>{{ $__t('Stock value') }}:</strong> <span id="productcard-product-stock-value"
@@ -103,7 +103,7 @@
 
 						<p class="w-75 mt-3 mx-auto">
 							<img id="productcard-product-picture"
-								class="img-fluid img-thumbnail d-none"
+								class="img-fluid img-thumbnail hidden"
 								src=""
 								loading="lazy">
 						</p>
@@ -111,9 +111,9 @@
 						@if(GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 						<h5 class="mt-3">{{ $__t('Price history') }}</h5>
 						<canvas id="productcard-product-price-history-chart"
-							class="w-100 d-none"></canvas>
+							class="w-full hidden"></canvas>
 						<span id="productcard-no-price-data-hint"
-							class="font-italic d-none">{{ $__t('No price history available') }}</span>
+							class="italic hidden">{{ $__t('No price history available') }}</span>
 						@endif
 					</div>
 				</div>

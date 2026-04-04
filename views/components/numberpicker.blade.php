@@ -22,7 +22,7 @@
 
 <div id="group-{{ $id }}"
 	class="form-group {{ $additionalGroupCssClasses }}">
-	<label class="w-100"
+	<label class="w-full"
 		for="{{ $id }}">
 		{{ $__t($label) }}
 		@if(!empty($hint) || !empty($hintId))

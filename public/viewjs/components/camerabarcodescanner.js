@@ -179,7 +179,7 @@ $(document).on("click", "#camerabarcodescanner-start-button", async function(e)
 	});
 
 	// Add camera select to existing dialog
-	dialog.find('.bootbox-body').append('<div class="form-group pb-0 pt-2 my-1 d-block cameraSelect-wrapper"><select class="custom-control custom-select cameraSelect"></select></div>');
+	dialog.find('.bootbox-body').append('<div class="form-group pb-0 pt-2 my-1 block cameraSelect-wrapper"><select class="form-control cameraSelect"></select></div>');
 	var cameraSelect = document.querySelector('.cameraSelect');
 	cameraSelect.onchange = function()
 	{

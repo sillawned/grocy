@@ -28,7 +28,7 @@
 @endpush
 
 @section('content')
-<div class="title-related-links d-print-none">
+<div class="title-related-links print:hidden">
 	<h2 class="title">
 		@yield('title')
 		<i class="fa-solid fa-question-circle text-muted small"
@@ -51,23 +51,23 @@
 		</label>
 	</div>
 	<div class="float-right">
-		<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+		<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 			type="button"
 			data-toggle="collapse"
 			data-target="#related-links">
 			<i class="fa-solid fa-ellipsis-v"></i>
 		</button>
 	</div>
-	<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+	<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 		id="related-links">
-		<a class="btn btn-outline-dark responsive-button m-1 mt-md-0 mb-md-0 float-right print-all-locations-button"
+		<a class="btn btn-outline-dark responsive-button m-1 md:mt-0 md:mb-0 float-right print-all-locations-button"
 			href="#">
 			{{ $__t('Print') . ' (' . $__t('all locations') . ')' }}
 		</a>
 	</div>
 </div>
 
-<hr class="my-2 d-print-none">
+<hr class="my-2 print:hidden">
 
 @foreach($locations as $location)
 @if(FindAllObjectsInArrayByPropertyValue($currentStockLocationContent, 'location_id', $location->id) == null)
@@ -78,16 +78,16 @@
 		<img src="{{ $U('/img/logo.svg?v=', true) }}{{ $version }}"
 			width="114"
 			height="30"
-			class="d-none d-print-flex mx-auto">
+			class="hidden print:flex mx-auto">
 		{{ $location->name }}
-		<a class="btn btn-outline-dark btn-sm responsive-button print-single-location-button d-print-none"
+		<a class="btn btn-outline-dark btn-sm responsive-button print-single-location-button print:hidden"
 			href="#">
 			{{ $__t('Print') . ' (' . $__t('this location') . ')' }}
 		</a>
 	</h1>
-	<h6 class="mb-4 d-none d-print-block text-center">
+	<h6 class="mb-4 hidden print:block text-center">
 		{{ $__t('Time of printing') }}:
-		<span class="d-inline print-timestamp"></span>
+		<span class="inline print-timestamp"></span>
 	</h6>
 	<div class="row">
 		<div class="col">
@@ -108,7 +108,7 @@
 						</td>
 						<td class="fit-content">
 							<span class="locale-number locale-number-quantity-amount">{{ $currentStockEntry->amount }}</span> <span id="product-{{ $currentStockEntry->product_id }}-qu-name">{{ $__n($currentStockEntry->amount, FindObjectInArrayByPropertyValue($quantityunits, 'id', FindObjectInArrayByPropertyValue($products, 'id', $currentStockEntry->product_id)->qu_id_stock)->name, FindObjectInArrayByPropertyValue($quantityunits, 'id', FindObjectInArrayByPropertyValue($products, 'id', $currentStockEntry->product_id)->qu_id_stock)->name_plural, true) }}</span>
-							<span class="small font-italic">@if($currentStockEntry->amount_opened > 0){{ $__t('%s opened', $currentStockEntry->amount_opened) }}@endif</span>
+							<span class="small italic">@if($currentStockEntry->amount_opened > 0){{ $__t('%s opened', $currentStockEntry->amount_opened) }}@endif</span>
 						</td>
 						<td class=""></td>
 					</tr>

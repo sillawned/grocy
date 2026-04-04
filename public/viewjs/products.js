@@ -9,7 +9,7 @@
 		{ "type": "html-num-fmt", "targets": 3 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#products-table tbody').removeClass("d-none");
+$('#products-table tbody').removeClass("hidden");
 productsTable.columns.adjust().draw();
 
 $("#search").on("keyup", Delay(function()

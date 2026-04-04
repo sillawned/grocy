@@ -76,7 +76,7 @@ var metricsTable = $("#metrics-table").DataTable({
 		{ "type": "num", "targets": 1 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$("#metrics-table tbody").removeClass("d-none");
+$("#metrics-table tbody").removeClass("hidden");
 metricsTable.columns.adjust().draw();
 
 var startDate = moment().startOf("month").format("YYYY-MM-DD");

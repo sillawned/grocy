@@ -12,7 +12,7 @@
 		{ "type": "html", "targets": 9 }
 	].concat($.fn.dataTable.defaults.columnDefs)
 });
-$('#stockentries-table tbody').removeClass("d-none");
+$('#stockentries-table tbody').removeClass("hidden");
 stockEntriesTable.columns.adjust().draw();
 
 $.fn.dataTable.ext.search.push(function(settings, data, dataIndex)
@@ -176,7 +176,7 @@ function RefreshStockEntryRow(stockRowId)
 			var stockRow = $('#stock-' + stockRowId + '-row');
 
 			// If the stock row not exists / is invisible (happens after consume/undo because the undone new stock row has different id), just reload the page for now
-			if (!stockRow.length || stockRow.hasClass("d-none"))
+			if (!stockRow.length || stockRow.hasClass("hidden"))
 			{
 				window.location.reload();
 			}
@@ -185,7 +185,7 @@ function RefreshStockEntryRow(stockRowId)
 			{
 				animateCSS("#stock-" + stockRowId + "-row", "fadeOut", function()
 				{
-					$("#stock-" + stockRowId + "-row").addClass("d-none");
+					$("#stock-" + stockRowId + "-row").addClass("hidden");
 				});
 			}
 			else
@@ -197,7 +197,7 @@ function RefreshStockEntryRow(stockRowId)
 				stockRow.removeClass("table-warning");
 				stockRow.removeClass("table-danger");
 				stockRow.removeClass("table-info");
-				stockRow.removeClass("d-none");
+				stockRow.removeClass("hidden");
 				stockRow.removeAttr("style");
 				if (now.isAfter(bestBeforeDate))
 				{

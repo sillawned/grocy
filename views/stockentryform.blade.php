@@ -53,7 +53,7 @@
 			$additionalGroupCssClasses = '';
 			if (!GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING)
 			{
-			$additionalGroupCssClasses = 'd-none';
+			$additionalGroupCssClasses = 'hidden';
 			}
 			@endphp
 			@include('components.datetimepicker', array(

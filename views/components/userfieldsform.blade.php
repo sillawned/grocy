@@ -148,7 +148,7 @@
 	</div>
 	@elseif($userfield->type == \Grocy\Services\UserfieldsService::USERFIELD_TYPE_LINK_WITH_TITLE)
 	<div class="form-group">
-		<label class="d-block">{{ $userfield->caption }}</label>
+		<label class="block">{{ $userfield->caption }}</label>
 		<div class="form-row">
 			<div class="col-4">
 				<input type="text"
@@ -190,7 +190,7 @@
 			<div class="input-group-append">
 				<a href="#"
 					target="_blank"
-					class="input-group-text userfield-file-show d-none discrete-link"><i class="fa-solid fa-eye"></i></a>
+					class="input-group-text userfield-file-show hidden discrete-link"><i class="fa-solid fa-eye"></i></a>
 			</div>
 		</div>
 	</div>
@@ -215,7 +215,7 @@
 		</div>
 		<img src=""
 			alt="{{ $userfield->name }}"
-			class="userfield-current-file userfield-file-show d-none mt-1 discrete-link"
+			class="userfield-current-file userfield-file-show hidden mt-1 discrete-link"
 			loading="lazy" />
 	</div>
 	@endif

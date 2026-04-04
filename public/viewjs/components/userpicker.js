@@ -1,4 +1,5 @@
 Grocy.Components.UserPicker = {};
+Grocy.Components.UserPicker._tsInstance = null;
 
 Grocy.Components.UserPicker.GetPicker = function()
 {
@@ -7,7 +8,7 @@ Grocy.Components.UserPicker.GetPicker = function()
 
 Grocy.Components.UserPicker.GetInputElement = function()
 {
-	return $('#user_id_text_input');
+	return $(Grocy.Components.UserPicker._tsInstance.control_input);
 }
 
 Grocy.Components.UserPicker.GetValue = function()
@@ -17,15 +18,21 @@ Grocy.Components.UserPicker.GetValue = function()
 
 Grocy.Components.UserPicker.SetValue = function(value)
 {
-	Grocy.Components.UserPicker.GetInputElement().val(value);
-	Grocy.Components.UserPicker.GetInputElement().trigger('change');
+	Grocy.Components.UserPicker._tsInstance.setTextboxValue(value);
+	$(Grocy.Components.UserPicker._tsInstance.control_input).trigger('change');
 }
 
 Grocy.Components.UserPicker.SetId = function(value)
 {
-	Grocy.Components.UserPicker.GetPicker().val(value);
-	Grocy.Components.UserPicker.GetPicker().data('combobox').refresh();
-	Grocy.Components.UserPicker.GetInputElement().trigger('change');
+	if (value === null || value === '' || value === undefined)
+	{
+		Grocy.Components.UserPicker._tsInstance.clear(true);
+	}
+	else
+	{
+		Grocy.Components.UserPicker._tsInstance.setValue(String(value), true);
+	}
+	Grocy.Components.UserPicker.GetPicker().trigger('change');
 }
 
 Grocy.Components.UserPicker.Clear = function()
@@ -34,9 +41,9 @@ Grocy.Components.UserPicker.Clear = function()
 	Grocy.Components.UserPicker.SetId(null);
 }
 
-$('.user-combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4'
+Grocy.Components.UserPicker._tsInstance = new TomSelect('#user_id', {
+	allowEmptyOption: true,
+	create: false
 });
 
 var prefillUser = Grocy.Components.UserPicker.GetPicker().parent().data('prefill-by-username').toString();
@@ -50,8 +57,7 @@ if (typeof prefillUser !== "undefined")
 
 	if (possibleOptionElement.length > 0)
 	{
-		$('#user_id').val(possibleOptionElement.val());
-		$('#user_id').data('combobox').refresh();
+		Grocy.Components.UserPicker._tsInstance.setValue(possibleOptionElement.val(), true);
 		$('#user_id').trigger('change');
 
 		var nextInputElement = $(Grocy.Components.UserPicker.GetPicker().parent().data('next-input-selector').toString());
@@ -65,8 +71,7 @@ if (typeof prefillUserId !== "undefined")
 	var possibleOptionElement = $("#user_id option[value='" + prefillUserId + "']").first();
 	if (possibleOptionElement.length > 0)
 	{
-		$('#user_id').val(possibleOptionElement.val());
-		$('#user_id').data('combobox').refresh();
+		Grocy.Components.UserPicker._tsInstance.setValue(possibleOptionElement.val(), true);
 		$('#user_id').trigger('change');
 
 		var nextInputElement = $(Grocy.Components.UserPicker.GetPicker().parent().data('next-input-selector').toString());

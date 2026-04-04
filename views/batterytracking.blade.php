@@ -15,7 +15,7 @@
 			novalidate>
 
 			<div class="form-group">
-				<label class="w-100"
+				<label class="w-full"
 					for="battery_id">
 					{{ $__t('Battery') }}
 					<i id="barcode-lookup-hint"

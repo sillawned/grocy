@@ -42,7 +42,7 @@
 			@include('components.productamountpicker', array(
 			'value' => 1,
 			'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info"
-				class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
+				class="text-info italic hidden">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
 			))
 
 			<div class="form-group">

@@ -95,7 +95,7 @@ Grocy.Components.ProductAmountPicker.AllowAnyQu = function(keepInitialQu = false
 Grocy.Components.ProductAmountPicker.Reset = function()
 {
 	$("#qu_id").find("option").remove();
-	$("#qu-conversion-info").addClass("d-none");
+	$("#qu-conversion-info").addClass("hidden");
 	$("#qu-display_amount-info").val("");
 }
 
@@ -109,11 +109,11 @@ $(".input-group-productamountpicker").on("change", function()
 
 	if ($("#qu_id").attr("data-destination-qu-name") == selectedQuName || Grocy.Components.ProductAmountPicker.AllowAnyQuEnabled || !amount || !selectedQuName)
 	{
-		$("#qu-conversion-info").addClass("d-none");
+		$("#qu-conversion-info").addClass("hidden");
 	}
 	else
 	{
-		$("#qu-conversion-info").removeClass("d-none");
+		$("#qu-conversion-info").removeClass("hidden");
 		$("#qu-conversion-info").text(__t("This equals %1$s %2$s", destinationAmount.toLocaleString({ minimumFractionDigits: 0, maximumFractionDigits: Grocy.UserSettings.stock_decimal_places_amounts }), destinationQuName));
 	}
 

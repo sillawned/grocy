@@ -12,12 +12,12 @@ $("#sidenavToggler").click(function(e)
 	if ($("body").hasClass("sidenav-toggled"))
 	{
 		window.localStorage.setItem("sidebar_state", "collapsed");
-		$(".container-fluid").removeClass("pl-md-3");
+		$(".container-fluid").removeClass("md:pl-3");
 	}
 	else
 	{
 		window.localStorage.setItem("sidebar_state", "expanded");
-		$(".container-fluid").addClass("pl-md-3");
+		$(".container-fluid").addClass("md:pl-3");
 	}
 });
 

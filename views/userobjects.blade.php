@@ -11,30 +11,30 @@
 			<h2 class="title mr-2 order-0">
 				@yield('title')
 			</h2>
-			<h2 class="mb-0 mr-auto order-3 order-md-1 width-xs-sm-100">
+			<h2 class="mb-0 mr-auto order-3 md:order-1 width-xs-sm-100">
 				<span class="text-muted small">{{ $userentity->description }}</span>
 			</h2>
 			<div class="float-right @if($embedded) pr-5 @endif">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#table-filter-row">
 					<i class="fa-solid fa-filter"></i>
 				</button>
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100 m-1 mt-md-0 mb-md-0 float-right"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100 m-1 md:mt-0 md:mb-0 float-right"
 				id="related-links">
 				<a class="btn btn-primary responsive-button mr-1 show-as-dialog-link"
 					href="{{ $U('/userobject/' . $userentity->name . '/new?embedded') }}">
 					{{ $__t('Add') }}
 				</a>
-				<a class="btn btn-outline-secondary d-print-none"
+				<a class="btn btn-outline-secondary print:hidden"
 					href="{{ $U('/userfields?entity=' . 'userentity-' . $userentity->name) }}">
 					{{ $__t('Configure fields') }}
 				</a>
@@ -45,7 +45,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-3">
 		<div class="input-group">
@@ -73,10 +73,10 @@
 <div class="row">
 	<div class="col">
 		<table id="userobjects-table-{{$userentity->id}}"
-			class="table table-sm table-striped nowrap w-100 userobjects-table">
+			class="table table-sm table-striped nowrap w-full userobjects-table">
 			<thead>
 				<tr>
-					<th class="border-right d-print-none">
+					<th class="border-right print:hidden">
 						<a class="text-muted change-table-columns-visibility-button"
 							data-toggle="tooltip"
 							title="{{ $__t('Table options') }}"
@@ -91,10 +91,10 @@
 
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($userobjects as $userobject)
 				<tr>
-					<td class="fit-content border-right d-print-none">
+					<td class="fit-content border-right print:hidden">
 						<a class="btn btn-info btn-sm show-as-dialog-link"
 							href="{{ $U('/userobject/' . $userentity->name . '/') }}{{ $userobject->id }}?embedded"
 							data-toggle="tooltip"

@@ -11,11 +11,11 @@
 			<h2 class="title">
 				@yield('title')<br>
 				@if($product != null)
-				<span class="text-muted font-italic small">{{ $__t('Product') }} <strong>{{ $product->name }}</strong></span>
+				<span class="text-muted italic small">{{ $__t('Product') }} <strong>{{ $product->name }}</strong></span>
 				@endif
 			</h2>
 			<div class="float-right @if($embedded) pr-5 @endif">
-				<button class="btn btn-outline-dark d-md-none mt-2"
+				<button class="btn btn-outline-dark md:hidden mt-2"
 					type="button"
 					data-toggle="collapse"
 					data-target="#table-filter-row">
@@ -28,7 +28,7 @@
 
 <hr class="my-2">
 
-<div class="row collapse d-md-flex"
+<div class="row collapse md:flex"
 	id="table-filter-row">
 	<div class="col-12 col-md-6 col-xl-2">
 		<div class="input-group">
@@ -60,7 +60,7 @@
 	<div class="col">
 
 		<table id="qu-conversions-resolved-table"
-			class="table table-sm table-striped nowrap w-100">
+			class="table table-sm table-striped nowrap w-full">
 			<thead>
 				<tr>
 					<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -75,7 +75,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody class="d-none">
+			<tbody class="hidden">
 				@foreach($quantityUnitConversionsResolved as $quConversion)
 				<tr>
 					<td class="fit-content border-right"></td>
@@ -88,7 +88,7 @@
 					<td>
 						<span class="locale-number locale-number-quantity-amount">{{ $quConversion->factor }}</span>
 					</td>
-					<td class="font-italic">
+					<td class="italic">
 						{!! $__t('This means 1 %1$s is the same as %2$s %3$s', FindObjectInArrayByPropertyValue($quantityUnits, 'id', $quConversion->from_qu_id)->name, '<span class="locale-number locale-number-quantity-amount">' . $quConversion->factor . '</span>', $__n($quConversion->factor, FindObjectInArrayByPropertyValue($quantityUnits, 'id', $quConversion->to_qu_id)->name, FindObjectInArrayByPropertyValue($quantityUnits, 'id', $quConversion->to_qu_id)->name_plural, true)) !!}
 					</td>
 				</tr>

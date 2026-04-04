@@ -16,7 +16,7 @@
 	data-next-input-selector="{{ $nextInputSelector }}"
 	data-prefill-by-name="{{ $prefillByName }}"
 	data-prefill-by-id="{{ $prefillById }}">
-	<label class="w-100"
+	<label class="w-full"
 		for="recipe_id">{{ $__t('Recipe') }}
 		@if(!empty($hint))
 		<i class="fa-solid fa-question-circle text-muted"

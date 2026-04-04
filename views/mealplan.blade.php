@@ -82,21 +82,21 @@
 	<div class="col">
 		<div class="title-related-links">
 			<h2 class="title">@yield('title')</h2>
-			<div class="float-right d-print-none">
-				<button class="btn btn-outline-dark d-md-none mt-2 order-1 order-md-3"
+			<div class="float-right print:hidden">
+				<button class="btn btn-outline-dark md:hidden mt-2 order-1 md:order-3"
 					type="button"
 					data-toggle="collapse"
 					data-target="#related-links">
 					<i class="fa-solid fa-ellipsis-v"></i>
 				</button>
 			</div>
-			<div class="related-links collapse d-md-flex order-2 width-xs-sm-100 d-print-none"
+			<div class="related-links collapse md:flex order-2 width-xs-sm-100 print:hidden"
 				id="related-links">
 				<a id="print-meal-plan-button"
-					class="btn btn-outline-dark m-1 mt-md-0 mb-md-0 float-right">
+					class="btn btn-outline-dark m-1 md:mt-0 md:mb-0 float-right">
 					{{ $__t('Print') }}
 				</a>
-				<a class="btn btn-outline-secondary m-1 mt-md-0 mb-md-0 float-right"
+				<a class="btn btn-outline-secondary m-1 md:mt-0 md:mb-0 float-right"
 					href="{{ $U('/mealplansections') }}">
 					{{ $__t('Configure sections') }}
 				</a>
@@ -143,7 +143,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title w-100">
+				<h4 class="modal-title w-full">
 					<span id="add-recipe-modal-title"></span>
 					<span class="text-muted float-right">{{ $__t('Recipe') }}</span>
 				</h4>
@@ -218,7 +218,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title w-100">
+				<h4 class="modal-title w-full">
 					<span id="add-note-modal-title"></span>
 					<span class="text-muted float-right">{{ $__t('Note') }}</span>
 				</h4>
@@ -270,7 +270,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title w-100">
+				<h4 class="modal-title w-full">
 					<span id="add-product-modal-title"></span>
 					<span class="text-muted float-right">{{ $__t('Product') }}</span>
 				</h4>
@@ -325,7 +325,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 id="copy-day-modal-title"
-					class="modal-title w-100"></h4>
+					class="modal-title w-full"></h4>
 			</div>
 			<div class="modal-body">
 				<form id="copy-day-form"

@@ -1,4 +1,5 @@
 Grocy.Components.ShoppingLocationPicker = {};
+Grocy.Components.ShoppingLocationPicker._tsInstance = null;
 
 Grocy.Components.ShoppingLocationPicker.GetPicker = function()
 {
@@ -7,7 +8,7 @@ Grocy.Components.ShoppingLocationPicker.GetPicker = function()
 
 Grocy.Components.ShoppingLocationPicker.GetInputElement = function()
 {
-	return $('#shopping_location_id_text_input');
+	return $(Grocy.Components.ShoppingLocationPicker._tsInstance.control_input);
 }
 
 Grocy.Components.ShoppingLocationPicker.GetValue = function()
@@ -17,15 +18,21 @@ Grocy.Components.ShoppingLocationPicker.GetValue = function()
 
 Grocy.Components.ShoppingLocationPicker.SetValue = function(value)
 {
-	Grocy.Components.ShoppingLocationPicker.GetInputElement().val(value);
-	Grocy.Components.ShoppingLocationPicker.GetInputElement().trigger('change');
+	Grocy.Components.ShoppingLocationPicker._tsInstance.setTextboxValue(value);
+	$(Grocy.Components.ShoppingLocationPicker._tsInstance.control_input).trigger('change');
 }
 
 Grocy.Components.ShoppingLocationPicker.SetId = function(value)
 {
-	Grocy.Components.ShoppingLocationPicker.GetPicker().val(value);
-	Grocy.Components.ShoppingLocationPicker.GetPicker().data('combobox').refresh();
-	Grocy.Components.ShoppingLocationPicker.GetInputElement().trigger('change');
+	if (value === null || value === '' || value === undefined)
+	{
+		Grocy.Components.ShoppingLocationPicker._tsInstance.clear(true);
+	}
+	else
+	{
+		Grocy.Components.ShoppingLocationPicker._tsInstance.setValue(String(value), true);
+	}
+	Grocy.Components.ShoppingLocationPicker.GetPicker().trigger('change');
 }
 
 Grocy.Components.ShoppingLocationPicker.Clear = function()
@@ -34,10 +41,9 @@ Grocy.Components.ShoppingLocationPicker.Clear = function()
 	Grocy.Components.ShoppingLocationPicker.SetId(null);
 }
 
-$('.shopping-location-combobox').combobox({
-	appendId: '_text_input',
-	bsVersion: '4',
-	clearIfNoMatch: true
+Grocy.Components.ShoppingLocationPicker._tsInstance = new TomSelect('#shopping_location_id', {
+	allowEmptyOption: true,
+	create: false
 });
 
 var prefillByName = Grocy.Components.ShoppingLocationPicker.GetPicker().parent().data('prefill-by-name').toString();
@@ -47,8 +53,7 @@ if (typeof prefillByName !== "undefined")
 
 	if (possibleOptionElement.length > 0)
 	{
-		$('#shopping_location_id').val(possibleOptionElement.val());
-		$('#shopping_location_id').data('combobox').refresh();
+		Grocy.Components.ShoppingLocationPicker._tsInstance.setValue(possibleOptionElement.val(), true);
 		$('#shopping_location_id').trigger('change');
 
 		var nextInputElement = $(Grocy.Components.ShoppingLocationPicker.GetPicker().parent().data('next-input-selector').toString());
@@ -59,8 +64,7 @@ if (typeof prefillByName !== "undefined")
 var prefillById = Grocy.Components.ShoppingLocationPicker.GetPicker().parent().data('prefill-by-id').toString();
 if (typeof prefillById !== "undefined")
 {
-	$('#shopping_location_id').val(prefillById);
-	$('#shopping_location_id').data('combobox').refresh();
+	Grocy.Components.ShoppingLocationPicker._tsInstance.setValue(prefillById, true);
 	$('#shopping_location_id').trigger('change');
 
 	var nextInputElement = $(Grocy.Components.ShoppingLocationPicker.GetPicker().parent().data('next-input-selector').toString());

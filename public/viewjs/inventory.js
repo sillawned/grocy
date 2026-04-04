@@ -9,7 +9,7 @@ $('#save-inventory-button').on('click', function(e)
 		return;
 	}
 
-	if ($(".combobox-menu-visible").length)
+	if ($(".ts-wrapper.dropdown-active").length)
 	{
 		return;
 	}
@@ -64,9 +64,9 @@ $('#save-inventory-button').on('click', function(e)
 						Grocy.Api.Post('objects/product_barcodes', jsonDataBarcode,
 							function(result)
 							{
-								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("d-none");
-								$('#barcode-lookup-disabled-hint').addClass('d-none');
-								$('#barcode-lookup-hint').removeClass('d-none');
+								$("#flow-info-InplaceAddBarcodeToExistingProduct").addClass("hidden");
+								$('#barcode-lookup-disabled-hint').addClass('hidden');
+								$('#barcode-lookup-hint').removeClass('hidden');
 								window.history.replaceState({}, document.title, U("/inventory"));
 							},
 							function(xhr)
@@ -145,8 +145,8 @@ $('#save-inventory-button').on('click', function(e)
 									Grocy.Components.ProductPicker.FinishFlow();
 
 									Grocy.Components.ProductAmountPicker.Reset();
-									$('#inventory-change-info').addClass('d-none');
-									$("#tare-weight-handling-info").addClass("d-none");
+									$('#inventory-change-info').addClass('hidden');
+									$("#tare-weight-handling-info").addClass("hidden");
 									$("#display_amount").attr("min", "0");
 									$('#display_amount').val('');
 									$('#display_amount').removeAttr("data-not-equal");
@@ -217,12 +217,12 @@ Grocy.Components.ProductPicker.GetPicker().on('change', function(e)
 				if (productDetails.product.enable_tare_weight_handling == 1)
 				{
 					$("#display_amount").attr("min", productDetails.product.tare_weight);
-					$("#tare-weight-handling-info").removeClass("d-none");
+					$("#tare-weight-handling-info").removeClass("hidden");
 				}
 				else
 				{
 					$("#display_amount").attr("min", "0");
-					$("#tare-weight-handling-info").addClass("d-none");
+					$("#tare-weight-handling-info").addClass("hidden");
 				}
 
 				if (productDetails.last_price)
@@ -458,11 +458,11 @@ $('#display_amount').on('keyup', function(e)
 				var estimatedBookingAmount = (newAmount - productStockAmount - containerWeight).toFixed(Grocy.UserSettings.stock_decimal_places_amounts);
 				$("#amount").attr("data-estimated-booking-amount", estimatedBookingAmount).trigger("change");
 				estimatedBookingAmount = Math.abs(estimatedBookingAmount);
-				$('#inventory-change-info').removeClass('d-none');
+				$('#inventory-change-info').removeClass('hidden');
 
 				if (productDetails.product.enable_tare_weight_handling == 1 && newAmount < containerWeight)
 				{
-					$('#inventory-change-info').addClass('d-none');
+					$('#inventory-change-info').addClass('hidden');
 				}
 				else if (newAmount > productStockAmount + containerWeight)
 				{
@@ -484,7 +484,7 @@ $('#display_amount').on('keyup', function(e)
 				}
 				else if (newAmount == productStockAmount)
 				{
-					$('#inventory-change-info').addClass('d-none');
+					$('#inventory-change-info').addClass('hidden');
 				}
 
 				if (!Grocy.FeatureFlags.GROCY_FEATURE_FLAG_STOCK_BEST_BEFORE_DATE_TRACKING)

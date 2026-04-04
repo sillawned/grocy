@@ -99,7 +99,7 @@
 					name="description">@if($mode == 'edit'){{ $recipe->description }}@endif</textarea>
 			</div>
 
-			<small class="my-2 form-text text-muted @if($mode == 'edit') d-none @endif">{{ $__t('Save & continue to add ingredients and included recipes') }}</small>
+			<small class="my-2 form-text text-muted @if($mode == 'edit') hidden @endif">{{ $__t('Save & continue to add ingredients and included recipes') }}</small>
 
 			<button class="save-recipe btn btn-success mb-2"
 				data-location="continue">{{ $__t('Save & continue') }}</button>
@@ -109,23 +109,23 @@
 		</form>
 	</div>
 
-	<div class="col-12 col-md-5 pb-3 @if($mode == 'create') d-none @endif">
+	<div class="col-12 col-md-5 pb-3 @if($mode == 'create') hidden @endif">
 		<div class="row">
 			<div class="col">
 				<div class="title-related-links">
 					<h4>
 						{{ $__t('Ingredients list') }}
 					</h4>
-					<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+					<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 						type="button"
 						data-toggle="collapse"
 						data-target="#related-links">
 						<i class="fa-solid fa-ellipsis-v"></i>
 					</button>
-					<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+					<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 						id="related-links">
 						<a id="recipe-pos-add-button"
-							class="btn btn-outline-primary btn-sm recipe-pos-add-button m-1 mt-md-0 mb-md-0 float-right"
+							class="btn btn-outline-primary btn-sm recipe-pos-add-button m-1 md:mt-0 md:mb-0 float-right"
 							type="button"
 							href="#">
 							{{ $__t('Add') }}
@@ -134,7 +134,7 @@
 				</div>
 
 				<table id="recipes-pos-table"
-					class="table table-sm table-striped nowrap w-100">
+					class="table table-sm table-striped nowrap w-full">
 					<thead>
 						<tr>
 							<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -149,7 +149,7 @@
 							<th class="allow-grouping">{{ $__t('Ingredient group') }}</th>
 						</tr>
 					</thead>
-					<tbody class="d-none">
+					<tbody class="hidden">
 						@if($mode == "edit")
 						@foreach($recipePositions as $recipePosition)
 						<tr>
@@ -199,7 +199,7 @@
 								{{ $__n($recipePosition->amount, FindObjectInArrayByPropertyValue($quantityunits, 'id', $recipePosition->qu_id)->name, FindObjectInArrayByPropertyValue($quantityunits, 'id', $recipePosition->qu_id)->name_plural, true) }}
 
 								@if(!empty($recipePosition->variable_amount))
-								<div class="small text-muted font-italic">{{ $__t('Variable amount') }}</div>
+								<div class="small text-muted italic">{{ $__t('Variable amount') }}</div>
 								@endif
 							</td>
 							<td class="fit-content">
@@ -229,23 +229,23 @@
 					<h4>
 						{{ $__t('Included recipes') }}
 					</h4>
-					<button class="btn btn-outline-dark d-md-none mt-2 float-right order-1 order-md-3"
+					<button class="btn btn-outline-dark md:hidden mt-2 float-right order-1 md:order-3"
 						type="button"
 						data-toggle="collapse"
 						data-target="#related-links">
 						<i class="fa-solid fa-ellipsis-v"></i>
 					</button>
-					<div class="related-links collapse d-md-flex order-2 width-xs-sm-100"
+					<div class="related-links collapse md:flex order-2 width-xs-sm-100"
 						id="related-links">
 						<a id="recipe-include-add-button"
-							class="btn btn-outline-primary btn-sm m-1 mt-md-0 mb-md-0 float-right"
+							class="btn btn-outline-primary btn-sm m-1 md:mt-0 md:mb-0 float-right"
 							href="#">
 							{{ $__t('Add') }}
 						</a>
 					</div>
 				</div>
 				<table id="recipes-includes-table"
-					class="table table-sm table-striped nowrap w-100">
+					class="table table-sm table-striped nowrap w-full">
 					<thead>
 						<tr>
 							<th class="border-right"><a class="text-muted change-table-columns-visibility-button"
@@ -258,7 +258,7 @@
 							<th>{{ $__t('Servings') }}</th>
 						</tr>
 					</thead>
-					<tbody class="d-none">
+					<tbody class="hidden">
 						@if($mode == "edit")
 						@foreach($recipeNestings as $recipeNesting)
 						<tr>
@@ -305,12 +305,12 @@
 									id="recipe-picture"
 									accept="image/*">
 								<label id="recipe-picture-label"
-									class="custom-file-label @if(empty($recipe->picture_file_name)) d-none @endif"
+									class="custom-file-label @if(empty($recipe->picture_file_name)) hidden @endif"
 									for="recipe-picture">
 									{{ $recipe->picture_file_name }}
 								</label>
 								<label id="recipe-picture-label-none"
-									class="custom-file-label @if(!empty($recipe->picture_file_name)) d-none @endif"
+									class="custom-file-label @if(!empty($recipe->picture_file_name)) hidden @endif"
 									for="recipe-picture">
 									{{ $__t('No file selected') }}
 								</label>
@@ -328,10 +328,10 @@
 					class="img-fluid img-thumbnail mt-2 mb-5"
 					loading="lazy">
 				<p id="delete-current-recipe-picture-on-save-hint"
-					class="form-text text-muted font-italic d-none mb-5">{{ $__t('The current picture will be deleted on save') }}</p>
+					class="form-text text-muted italic hidden mb-5">{{ $__t('The current picture will be deleted on save') }}</p>
 				@else
 				<p id="no-current-recipe-picture-hint"
-					class="form-text text-muted font-italic mb-5">{{ $__t('No picture available') }}</p>
+					class="form-text text-muted italic mb-5">{{ $__t('No picture available') }}</p>
 				@endif
 			</div>
 		</div>
@@ -378,7 +378,7 @@
 		<div class="modal-content text-center">
 			<div class="modal-header">
 				<h4 id="recipe-include-editform-title"
-					class="modal-title w-100"></h4>
+					class="modal-title w-full"></h4>
 			</div>
 			<div class="modal-body">
 				<form id="recipe-include-form"

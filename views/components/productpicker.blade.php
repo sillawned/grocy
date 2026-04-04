@@ -29,7 +29,7 @@
 	data-disallow-all-product-workflows="{{ BoolToString($disallowAllProductWorkflows) }}"
 	data-prefill-by-name="{{ $prefillByName }}"
 	data-prefill-by-id="{{ $prefillById }}">
-	<label class="w-100"
+	<label class="w-full"
 		for="product_id">
 		{{ $__t($label) }}
 		@if(!$disallowAllProductWorkflows)
@@ -45,7 +45,7 @@
 			title="{{ $hint }}"></i>
 		@endif
 		<span id="barcode-lookup-disabled-hint"
-			class="small text-muted d-none float-right"> {{ $__t('Barcode lookup is disabled') }}</span>
+			class="small text-muted hidden float-right"> {{ $__t('Barcode lookup is disabled') }}</span>
 		<i id="barcode-lookup-hint"
 			class="fa-solid fa-barcode float-right mt-1"></i>
 	</label>
@@ -72,9 +72,9 @@
 	</select>
 	<div class="invalid-feedback">{{ $__t($validationMessage) }}</div>
 	<div id="custom-productpicker-error"
-		class="form-text text-danger d-none"></div>
+		class="form-text text-danger hidden"></div>
 	<div id="flow-info-InplaceAddBarcodeToExistingProduct"
-		class="form-text text-info small d-none"><strong><span id="InplaceAddBarcodeToExistingProduct"></span></strong> {{ $__t('will be added to the list of barcodes for the selected product on submit') }}</div>
+		class="form-text text-info small hidden"><strong><span id="InplaceAddBarcodeToExistingProduct"></span></strong> {{ $__t('will be added to the list of barcodes for the selected product on submit') }}</div>
 </div>
 
 @include('components.camerabarcodescanner')
